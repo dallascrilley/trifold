@@ -1,0 +1,24 @@
+{
+  "name": "cli-mcp-projects",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.20.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "pnpm -r run build",
+    "test": "pnpm -r run test",
+    "typecheck": "pnpm -r run typecheck",
+    "dev:api": "pnpm --filter @app/api dev",
+    "dev:cli": "pnpm --filter @app/cli start",
+    "dev:mcp": "pnpm --filter @app/mcp start",
+    "snapshot:update": "pnpm --filter @cli-mcp/openapi snapshot && pnpm --filter @cli-mcp/adapters-mcp snapshot"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
+  }
+}

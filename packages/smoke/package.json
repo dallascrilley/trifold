@@ -1,0 +1,22 @@
+{
+  "name": "@cli-mcp/smoke",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "build": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@cli-mcp/adapters-cli": "workspace:*",
+    "@cli-mcp/adapters-http": "workspace:*",
+    "@cli-mcp/adapters-mcp": "workspace:*",
+    "@cli-mcp/openapi": "workspace:*",
+    "@cli-mcp/ops": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
+  }
+}
