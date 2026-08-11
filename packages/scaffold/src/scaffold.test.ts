@@ -45,7 +45,8 @@ describe("planProductFiles", () => {
     expect(ops).toContain('path: "/notes"');
 
     const store = files.find((f) => f.path.endsWith("store.ts"))!.content;
-    expect(store).toContain("filePath");
+    expect(store).toContain("JsonFileMapStore");
+    expect(store).toContain("storePathFromEnv");
     expect(store).toContain("notesStoreFromEnv");
     expect(store).toContain("NOTES_STORE_PATH");
 
