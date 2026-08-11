@@ -1,7 +1,6 @@
 #!/usr/bin/env node
-import { createMcpServer } from "@cli-mcp/adapters-mcp";
+import { runMcpMain } from "@cli-mcp/adapters-mcp";
 import { createTasksRegistry } from "@cli-mcp/ops";
 
 const { registry } = createTasksRegistry();
-const mcp = createMcpServer(registry);
-await mcp.start();
+await runMcpMain({ registry, name: "tasks-mcp" });
