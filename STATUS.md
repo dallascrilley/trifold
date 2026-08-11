@@ -4,12 +4,12 @@
 - Owner: dallascrilley
 - Last verified: 2026-08-11
 - Current Linear outcome: none
-- Current Beads claim: none
+- Current Beads claim: none (post-v1 epic `cli-mcp-8sa` closed — landing OpenAPI import)
 - Remote: https://github.com/dallascrilley/cli-mcp-projects (private)
-- Base branch: `main` (PR #1–#5 merged)
-- Next safe action: `bin/work-items ready` → `cli-mcp-8sa.4` (OpenAPI import) or close epic
+- Base branch: `main` (PR #1–#5; #6 OpenAPI import pending)
+- Next safe action: after merge, pick new product work or polish
 - Blockers: none recorded
-- Working tree: clean on `main`
+- Working tree: `feat/openapi-import`
 - Backup: GitHub origin; Beads Dolt remote; `.beads/issues.jsonl` export
 
 ## Product pointer

@@ -5,3 +5,11 @@ export {
   type OpenAPIObject,
 } from "./emit.js";
 export { zodToJsonSchema } from "./zod-schema.js";
+export {
+  emitHandlerSkeleton,
+  openApiToOperations,
+  parseOpenAPIJson,
+  registerOpenApiStubs,
+  type ImportOpenAPIOptions,
+  type LooseOpenAPI,
+} from "./import.js";

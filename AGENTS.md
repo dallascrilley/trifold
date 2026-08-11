@@ -51,6 +51,16 @@ pnpm --filter @cli-mcp/<slug> test
 This creates `packages/<slug>` plus `apps/<slug>-{api,cli,mcp}`. Generator lives in
 `@cli-mcp/scaffold` (`packages/scaffold`). Do not hand-copy apps for new products.
 
+## Importing OpenAPI
+
+```bash
+pnpm openapi:import -- path/to/openapi.json
+pnpm openapi:import -- path/to/openapi.json --skeleton
+```
+
+Uses `@cli-mcp/openapi` `openApiToOperations` / `registerOpenApiStubs`. MCP is **off**
+by default on imports (`--mcp` to enable). Handlers start as `NOT_IMPLEMENTED`.
+
 ## Adding an operation
 
 1. Prefer scaffolding a product, or define ops in `packages/ops` / `packages/<product>`.

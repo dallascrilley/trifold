@@ -138,6 +138,36 @@ APP_API_KEY=dev-key pnpm --filter @app/<slug>-cli start -- <slug> create "First"
 Generates `packages/<slug>` (domain + sample list/get/create ops) and
 `apps/<slug>-{api,cli,mcp}`. The repo includes a **`notes`** product produced this way.
 
+## Import OpenAPI → operation stubs
+
+When you already have an OpenAPI document, import **registry stubs** (HTTP/CLI
+surfaces; handlers throw `NOT_IMPLEMENTED` until you implement them). MCP stays
+off by default (pass `--mcp` to enable).
+
+```bash
+pnpm openapi:import -- examples/tasks/openapi.snapshot.json
+pnpm openapi:import -- ./openapi.json --json
+pnpm openapi:import -- ./openapi.json --skeleton > handlers.stub.ts
+```
+
+```ts
+import { openApiToOperations, parseOpenAPIJson } from "@cli-mcp/openapi";
+import { Registry } from "@cli-mcp/core";
+import { readFileSync } from "node:fs";
+
+const doc = parseOpenAPIJson(readFileSync("./openapi.json", "utf8"));
+const registry = new Registry();
+for (const stub of openApiToOperations(doc)) {
+  registry.register({
+    ...stub,
+    handler: async (_ctx, input) => {
+      /* implement stub.id */
+      return input;
+    },
+  });
+}
+```
+
 ## Layout
 
 ```text
@@ -162,6 +192,7 @@ bin/work-items             Beads adapter
 | `pnpm test` | All package tests |
 | `pnpm typecheck` | `tsc --noEmit` everywhere |
 | `pnpm scaffold -- <slug>` | New domain + API/CLI/MCP apps |
+| `pnpm openapi:import -- <file>` | OpenAPI → OperationDef stubs |
 | `pnpm dev:api` | Tasks HTTP server |
 | `pnpm dev:cli` | Tasks CLI entry |
 | `pnpm dev:mcp` | Tasks MCP stdio server |

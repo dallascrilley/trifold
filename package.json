@@ -15,9 +15,11 @@
     "dev:mcp": "pnpm --filter @app/mcp start",
     "dev:mcp:http": "pnpm --filter @app/mcp start -- --http",
     "snapshot:update": "pnpm --filter @cli-mcp/openapi snapshot && pnpm --filter @cli-mcp/adapters-mcp snapshot",
-    "scaffold": "tsx scripts/scaffold-product.ts"
+    "scaffold": "tsx scripts/scaffold-product.ts",
+    "openapi:import": "tsx scripts/openapi-import.ts"
   },
   "devDependencies": {
+    "@cli-mcp/openapi": "workspace:*",
     "@types/node": "^22.13.10",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
