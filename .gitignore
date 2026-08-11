@@ -15,3 +15,7 @@ coverage/
 *.db
 .beads-credential-key
 .beads/proxieddb/
+
+# Portfolio assets (override global media ignores when present)
+!docs/assets/
+!docs/assets/**

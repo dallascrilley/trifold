@@ -8,6 +8,7 @@
 - **Beads:** `bin/work-items ready` (optional execution ledger)
 - **Next focus:** external feedback; optional product domains
 - **Blockers:** none
+- **Flair:** logo, architecture hero, demo GIF, OG card under `docs/assets/`
 
 ## Quality
 
