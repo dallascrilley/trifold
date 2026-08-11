@@ -101,9 +101,7 @@ export const Get${pascal}Input = z.object({
 
   files.push({
     path: `packages/${slug}/src/store.ts`,
-    content: `import { AppError } from "@cli-mcp/core";
-import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
-import { dirname } from "node:path";
+    content: `import { AppError, JsonFileMapStore, storePathFromEnv } from "@cli-mcp/core";
 import type { ${pascal} } from "./schemas.js";
 import { ${pascal}Schema } from "./schemas.js";
 
@@ -112,38 +110,35 @@ export type ${pascal}StoreOptions = {
   filePath?: string;
 };
 
-type FilePayload = { version: 1; items: ${pascal}[] };
-
 export class ${pascal}Store {
-  private readonly items = new Map<string, ${pascal}>();
-  private readonly filePath?: string;
+  private readonly backend: JsonFileMapStore<${pascal}>;
 
   constructor(options: ${pascal}StoreOptions = {}) {
-    this.filePath = options.filePath;
-    this.reload();
+    this.backend = new JsonFileMapStore({
+      filePath: options.filePath,
+      itemSchema: ${pascal}Schema,
+      collectionKey: "items",
+      label: "${slug} store",
+    });
   }
 
   create(input: { title: string; body?: string }): ${pascal} {
-    this.reload();
     const item: ${pascal} = {
       id: crypto.randomUUID(),
       title: input.title,
       createdAt: new Date().toISOString(),
       ...(input.body !== undefined ? { body: input.body } : {}),
     };
-    this.items.set(item.id, item);
-    this.persist();
+    this.backend.set(item);
     return item;
   }
 
   list(): ${pascal}[] {
-    this.reload();
-    return [...this.items.values()];
+    return this.backend.list();
   }
 
   get(id: string): ${pascal} {
-    this.reload();
-    const item = this.items.get(id);
+    const item = this.backend.get(id);
     if (!item) {
       throw new AppError("NOT_FOUND", \`${pascal} not found: \${id}\`, { status: 404 });
     }
@@ -151,43 +146,11 @@ export class ${pascal}Store {
   }
 
   clear(): void {
-    this.items.clear();
-    this.persist();
+    this.backend.clear();
   }
 
   get persistencePath(): string | undefined {
-    return this.filePath;
-  }
-
-  private reload(): void {
-    if (!this.filePath) return;
-    if (!existsSync(this.filePath)) {
-      this.items.clear();
-      return;
-    }
-    try {
-      const raw = readFileSync(this.filePath, "utf8");
-      const parsed = JSON.parse(raw) as FilePayload;
-      this.items.clear();
-      for (const row of Array.isArray(parsed.items) ? parsed.items : []) {
-        const item = ${pascal}Schema.parse(row);
-        this.items.set(item.id, item);
-      }
-    } catch (err) {
-      throw new AppError("STORE_CORRUPT", \`Failed to read store: \${this.filePath}\`, {
-        status: 500,
-        details: err instanceof Error ? err.message : err,
-      });
-    }
-  }
-
-  private persist(): void {
-    if (!this.filePath) return;
-    mkdirSync(dirname(this.filePath), { recursive: true });
-    const payload: FilePayload = { version: 1, items: [...this.items.values()] };
-    const tmp = \`\${this.filePath}.\${process.pid}.\${Date.now()}.tmp\`;
-    writeFileSync(tmp, \`\${JSON.stringify(payload, null, 2)}\\n\`, "utf8");
-    renameSync(tmp, this.filePath);
+    return this.backend.persistencePath;
   }
 }
 
@@ -195,7 +158,7 @@ export class ${pascal}Store {
 export function ${storeFromEnv}(
   env: NodeJS.ProcessEnv = process.env,
 ): ${pascal}Store {
-  const filePath = env.${envStoreKey}?.trim() || env.CLI_MCP_STORE_PATH?.trim();
+  const filePath = storePathFromEnv(env, "${envStoreKey}", "CLI_MCP_STORE_PATH");
   return new ${pascal}Store(filePath ? { filePath } : {});
 }
 `,
