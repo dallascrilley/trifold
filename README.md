@@ -1,39 +1,74 @@
-# cli-mcp-projects
+<p align="center">
+  <img src="docs/assets/logo.svg" width="96" height="96" alt="cli-mcp-projects logo"/>
+</p>
 
-[![CI](https://github.com/dallascrilley/cli-mcp-projects/actions/workflows/ci.yml/badge.svg)](https://github.com/dallascrilley/cli-mcp-projects/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D22-brightgreen)](./package.json)
+<h1 align="center">cli-mcp-projects</h1>
 
-**Define once. Ship three surfaces.**
+<p align="center">
+  <strong>Define once. Ship three surfaces.</strong><br/>
+  <em>TypeScript Operation Registry → HTTP API · CLI · MCP</em>
+</p>
 
-A TypeScript / pnpm monorepo boilerplate where a single **Operation Registry** (Zod-validated handlers) drives:
+<p align="center">
+  <a href="https://github.com/dallascrilley/cli-mcp-projects/actions/workflows/ci.yml"><img src="https://github.com/dallascrilley/cli-mcp-projects/actions/workflows/ci.yml/badge.svg" alt="CI"/></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT"/></a>
+  <a href="./package.json"><img src="https://img.shields.io/badge/node-%3E%3D22-brightgreen" alt="Node 22+"/></a>
+  <a href="https://modelcontextprotocol.io"><img src="https://img.shields.io/badge/MCP-ready-7C3AED" alt="MCP"/></a>
+  <a href="./docs/ARCHITECTURE.md"><img src="https://img.shields.io/badge/docs-architecture-0B0F14" alt="Architecture"/></a>
+</p>
 
-| Surface | Stack | Role |
-|---|---|---|
-| **HTTP API** | Hono | Machines, webhooks, local services |
-| **CLI** | citty | Humans and scripts |
-| **MCP server** | Official MCP SDK | Agents (stdio or Streamable HTTP) |
-
-OpenAPI 3.1 is **emitted** from the same registry (and can be **imported** back as stubs). MCP tools are **curated** — not a naïve dump of every HTTP route.
+<p align="center">
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#demo">Demo</a> ·
+  <a href="#architecture">Architecture</a> ·
+  <a href="#included-samples">Samples</a> ·
+  <a href="docs/demo.md">Deep dive</a> ·
+  <a href="#contributing">Contributing</a>
+</p>
 
 ---
 
-## Why this exists
+### 30-second story
 
-Teams keep reinventing the same glue:
+You keep writing the **same capability** three times — once for the API, once for a CLI, once for an agent MCP server — and they drift. **cli-mcp-projects** makes the capability (an *operation*) the source of truth: Zod I/O, handler, auth, and side-effect metadata live together. Thin adapters expose HTTP, CLI, and curated MCP tools. OpenAPI is emitted from the same registry (and can be imported back as stubs).
 
-- Hand-written CLIs that drift from the API  
-- MCP servers that mirror REST 1:1 and overwhelm models  
-- OpenAPI docs that disagree with runtime behavior  
+**Proof:** clone → `pnpm install && pnpm test` → create a task over CLI or `curl` → list MCP tools that are deliberately *not* a 1:1 REST dump.
 
-This boilerplate treats **operations** as the source of truth: types, validation, auth metadata, and side-effect class live with the handler. Adapters only handle transport.
+---
 
-**Compared to common alternatives**
+<p align="center">
+  <img src="docs/assets/architecture.svg" alt="Architecture: domain ops feed a registry that fans out to HTTP, CLI, and MCP, with OpenAPI emit/import" width="100%"/>
+</p>
+
+---
+
+## Demo
+
+<p align="center">
+  <img src="docs/assets/demo.gif" alt="Terminal demo: create task, list tasks, import OpenAPI stubs" width="100%"/>
+</p>
+
+Step-by-step commands: **[docs/demo.md](./docs/demo.md)**.
+
+Regenerate the GIF (optional): `vhs docs/assets/demo.tape` from the repo root.
+
+---
+
+## Before / after
+
+| Before (typical glue) | After (this boilerplate) |
+|---|---|
+| Hand-written CLI flags drift from REST handlers | One `registry.register(...)` drives CLI + HTTP |
+| MCP wraps every OpenAPI path → tool spam | MCP is **opt-in** per operation; writes need agent copy |
+| OpenAPI docs disagree with runtime | OpenAPI **emitted** from the live registry |
+| New product = copy-paste three apps | `pnpm scaffold -- <slug>` generates domain + apps |
+
+### Why not only X?
 
 | Approach | Good for | Gap this fills |
 |---|---|---|
-| OpenAPI → MCP wrappers | Existing public APIs | Weak multi-surface authoring; tool spam |
-| Runtime OpenAPI CLIs | Ad-hoc API ops | Not a product you own end-to-end |
+| OpenAPI → MCP wrappers | Existing public APIs | Weak multi-surface authoring; naïve tool dumps |
+| Runtime OpenAPI CLIs (e.g. Restish) | Ad-hoc exploration | Not an owned product monorepo with tests |
 | tRPC / oRPC alone | App backends | MCP + first-class CLI still bolted on |
 
 ---
@@ -41,11 +76,11 @@ This boilerplate treats **operations** as the source of truth: types, validation
 ## Features
 
 - **Single registration** → HTTP route, CLI command, optional MCP tool  
-- **Zod** input/output validation on every invoke path  
+- **Zod** validation on every invoke path  
 - **OpenAPI 3.1 emit** + **import** (JSON Schema → Zod subset)  
-- **MCP curation** — explicit enable; writes need agent-facing descriptions  
-- **Product scaffolder** — `pnpm scaffold -- <slug>` generates domain + three apps  
-- **Shared demo stores** — optional JSON files for multi-process CLI/API (`JsonFileMapStore`)  
+- **MCP curation** — explicit enable; writes need `agentDescription`  
+- **Product scaffolder** — domain + API/CLI/MCP apps in one command  
+- **Shared demo stores** — optional JSON files via `JsonFileMapStore`  
 - **Production auth defaults** — no invented keys when `NODE_ENV=production`  
 - **CI** — typecheck + test on every PR  
 
@@ -59,22 +94,19 @@ This boilerplate treats **operations** as the source of truth: types, validation
 git clone https://github.com/dallascrilley/cli-mcp-projects.git
 cd cli-mcp-projects
 pnpm install
-pnpm test
+pnpm validate   # typecheck + test + secret-pattern scan
 ```
 
-### Try the tasks sample
+### Tasks sample (API + CLI)
 
 ```bash
-# optional: share state across processes
-export TASKS_STORE_PATH=.data/tasks.json
-export APP_API_KEY=dev-key   # demo only — see Auth
+export APP_API_KEY=dev-key                 # demo only
+export TASKS_STORE_PATH=.data/tasks.json   # share across processes
 
-# terminal 1
 pnpm dev:api
-# http://localhost:8787/healthz
-# http://localhost:8787/openapi.json
+# → http://localhost:8787/healthz
+# → http://localhost:8787/openapi.json
 
-# terminal 2
 pnpm --filter @app/cli start -- tasks create "Ship demo" --json
 pnpm --filter @app/cli start -- tasks list --json
 ```
@@ -83,11 +115,9 @@ pnpm --filter @app/cli start -- tasks list --json
 
 ```bash
 export APP_API_KEY=dev-key
-pnpm dev:mcp                 # stdio (default)
-pnpm dev:mcp:http            # Streamable HTTP → http://127.0.0.1:8790/mcp
+pnpm dev:mcp                 # stdio
+pnpm dev:mcp:http            # Streamable HTTP → :8790/mcp
 ```
-
-Example stdio client config:
 
 ```json
 {
@@ -102,15 +132,28 @@ Example stdio client config:
 }
 ```
 
-The tasks sample exposes `tasks_list`, `tasks_get`, and `tasks_create` over MCP — **not** `tasks_complete` (HTTP/CLI only), demonstrating curation.
+---
+
+## Included samples
+
+| Sample | Packages / apps | Highlights |
+|---|---|---|
+| **tasks** | `packages/ops`, `apps/{api,cli,mcp}` | Full sample; `tasks.complete` is HTTP/CLI only (MCP omitted on purpose) |
+| **notes** | `packages/notes`, `apps/notes-*` | Generated via scaffolder; file store with `NOTES_STORE_PATH` |
+
+```bash
+# notes product
+export APP_API_KEY=dev-key
+export NOTES_STORE_PATH=.data/notes.json
+pnpm --filter @app/notes-cli start -- notes create "Hello" --json
+pnpm --filter @app/notes-cli start -- notes list --json
+```
 
 ---
 
 ## Define an operation
 
 ```ts
-import { z } from "zod";
-
 registry.register({
   id: "tasks.create",
   summary: "Create a task",
@@ -122,8 +165,7 @@ registry.register({
     cli: { command: "tasks create", positional: ["title"] },
     mcp: {
       enabled: true,
-      agentDescription:
-        "Create a task with a title. Use only for new work items.",
+      agentDescription: "Create a task with a title. New work items only.",
     },
   },
   handler: async (_ctx, input) => store.create(input),
@@ -136,7 +178,7 @@ registry.register({
 |---|---|
 | Omit `surfaces.mcp` / `enabled: false` | Not a tool |
 | Write + MCP enabled | Requires `agentDescription` |
-| Snapshots | `examples/tasks/*` — update with `pnpm snapshot:update` |
+| Snapshots | `examples/tasks/*` — refresh with `pnpm snapshot:update` |
 
 ---
 
@@ -151,10 +193,6 @@ export INVENTORY_STORE_PATH=.data/inventory.json
 pnpm --filter @app/inventory-cli start -- inventory create "Widget" --json
 ```
 
-Generates `packages/<slug>` plus `apps/<slug>-{api,cli,mcp}` with file-store wiring.
-
-The repo includes a **notes** product produced this way.
-
 ---
 
 ## Import OpenAPI → stubs
@@ -164,37 +202,36 @@ pnpm openapi:import -- examples/tasks/openapi.snapshot.json
 pnpm openapi:import -- ./openapi.json --skeleton > handlers.stub.ts
 ```
 
-Imports produce `OperationDef` stubs (HTTP + CLI surfaces). Handlers start as `NOT_IMPLEMENTED` until you implement them. Request/response JSON Schemas map to Zod (subset). MCP stays off unless `--mcp`.
+Stubs get HTTP/CLI surfaces and Zod inputs from JSON Schema. Handlers start as `NOT_IMPLEMENTED`. MCP stays off unless `--mcp`.
 
 ---
 
 ## Architecture
 
 ```text
-  packages/* (ops)          packages/scaffold
-        │                          │
-        ▼                          ▼
-   Operation Registry ◄──── register / generate
-        │
-        ├──────────────┬──────────────┐
-        ▼              ▼              ▼
-     HTTP API         CLI           MCP
-     (Hono)         (citty)     (stdio / HTTP)
-        │
-        └──► OpenAPI emit / import  (@cli-mcp/openapi)
+  packages/* (domain ops)     packages/scaffold
+           │                         │
+           ▼                         ▼
+    Operation Registry  ◄── register / generate
+           │
+     ┌─────┼──────┐
+     ▼     ▼      ▼
+   HTTP   CLI    MCP
+   Hono  citty  stdio/HTTP
+     │
+     └── OpenAPI emit / import
 ```
-
-Deeper write-up: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 
 | Package | Responsibility |
 |---|---|
 | `@cli-mcp/core` | IR, registry, invoke, auth, `JsonFileMapStore` |
 | `@cli-mcp/adapters-http` | Hono app from registry |
 | `@cli-mcp/adapters-cli` | citty CLI from registry |
-| `@cli-mcp/adapters-mcp` | MCP server (stdio / Streamable HTTP) |
+| `@cli-mcp/adapters-mcp` | MCP stdio / Streamable HTTP |
 | `@cli-mcp/openapi` | OpenAPI emit + import |
 | `@cli-mcp/scaffold` | Product generator |
-| `@cli-mcp/ops` / `@cli-mcp/notes` | Sample domains |
+
+Deep dive: **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)** · walkthrough: **[docs/demo.md](./docs/demo.md)**
 
 ---
 
@@ -203,10 +240,10 @@ Deeper write-up: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 | Surface | Mechanism |
 |---|---|
 | HTTP | `X-API-Key` or `Authorization: Bearer` |
-| CLI / MCP | `APP_API_KEY`, `APP_TOKEN`, or `APP_API_KEYS` |
+| CLI / MCP | `APP_API_KEY` / `APP_TOKEN` / `APP_API_KEYS` |
 
-- Demo default (non-production): `dev-key` when no keys are configured.  
-- **`NODE_ENV=production`:** missing keys fail closed — no invented credentials.  
+- Demo default (non-production): `dev-key` when unset.  
+- **`NODE_ENV=production`:** fail closed — no invented credentials.  
 - See [`.env.example`](./.env.example).
 
 ---
@@ -215,30 +252,29 @@ Deeper write-up: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 
 | Command | Purpose |
 |---|---|
-| `pnpm test` | All package tests |
-| `pnpm typecheck` | TypeScript across the workspace |
-| `pnpm validate` | Typecheck + test + heuristic secret scan |
+| `pnpm validate` | Typecheck + test + secret-pattern scan |
+| `pnpm test` / `pnpm typecheck` | Quality gates |
 | `pnpm scaffold -- <slug>` | New domain + apps |
-| `pnpm openapi:import -- <file>` | OpenAPI → operation stubs |
-| `pnpm dev:api` / `dev:cli` / `dev:mcp` | Tasks sample runtimes |
+| `pnpm openapi:import -- <file>` | OpenAPI → stubs |
+| `pnpm dev:api` / `dev:cli` / `dev:mcp` | Tasks sample |
 | `pnpm dev:mcp:http` | MCP Streamable HTTP |
-| `pnpm snapshot:update` | Refresh tasks OpenAPI + MCP goldens |
+| `pnpm snapshot:update` | Refresh tasks goldens |
 
 ---
 
 ## Project status
 
-This is a **working boilerplate**, not a hosted SaaS. Samples use in-memory or optional local JSON stores. See [STATUS.md](./STATUS.md) for a compact project pointer.
+Working **boilerplate** (not a hosted SaaS). Samples use in-memory or local JSON stores.
 
-Design history lives under `docs/brainstorms/` and `docs/plans/`.
+- Status pointer: [STATUS.md](./STATUS.md)  
+- Public release SOP: [docs/runbooks/public-repo-release-sop.md](./docs/runbooks/public-repo-release-sop.md)  
+- Design history: `docs/brainstorms/`, `docs/plans/`
 
 ---
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md). Please read [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) and [SECURITY.md](./SECURITY.md).
-
-Publishing / hygiene process for repos like this: [docs/runbooks/public-repo-release-sop.md](./docs/runbooks/public-repo-release-sop.md).
+See [CONTRIBUTING.md](./CONTRIBUTING.md), [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md), and [SECURITY.md](./SECURITY.md).
 
 ---
 
