@@ -22,8 +22,11 @@ function validKeys(): Set<string> {
     }
   }
   if (single?.trim()) keys.add(single.trim());
-  // Dev-friendly default when nothing configured
-  if (keys.size === 0) keys.add("dev-key");
+  // Dev-only default so local samples work without env setup.
+  // Never invent credentials when NODE_ENV=production.
+  if (keys.size === 0 && process.env.NODE_ENV !== "production") {
+    keys.add("dev-key");
+  }
   return keys;
 }
 

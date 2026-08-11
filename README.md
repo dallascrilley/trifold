@@ -100,7 +100,8 @@ registry.register({
 | HTTP | `X-API-Key` or `Authorization: Bearer` |
 | CLI / MCP | `APP_API_KEY` or `APP_TOKEN` / `APP_API_KEYS` |
 
-Default accepted key when none configured: `dev-key`.
+Default accepted key when none configured **and** `NODE_ENV !== production`: `dev-key`.  
+In production you must set `APP_API_KEY` or `APP_API_KEYS` or authenticated ops fail closed.
 
 ## Layout
 

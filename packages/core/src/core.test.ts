@@ -163,7 +163,9 @@ describe("auth + mcp helpers", () => {
     expect(() => authorize(op, {})).toThrow(AppError);
   });
 
-  it("authorize apiKey accepts dev-key by default", () => {
+  it("authorize apiKey accepts dev-key by default outside production", () => {
+    const prev = process.env.NODE_ENV;
+    process.env.NODE_ENV = "test";
     const op = makeOp({
       id: "demo.secure",
       meta: { sideEffect: "write", auth: "apiKey" },
@@ -171,6 +173,25 @@ describe("auth + mcp helpers", () => {
     });
     const result = authorize(op, { apiKey: "dev-key" });
     expect(result.actor?.kind).toBe("service");
+    process.env.NODE_ENV = prev;
+  });
+
+  it("authorize does not invent dev-key in production", () => {
+    const prev = process.env.NODE_ENV;
+    const prevKey = process.env.APP_API_KEY;
+    const prevKeys = process.env.APP_API_KEYS;
+    process.env.NODE_ENV = "production";
+    delete process.env.APP_API_KEY;
+    delete process.env.APP_API_KEYS;
+    const op = makeOp({
+      id: "demo.secure",
+      meta: { sideEffect: "write", auth: "apiKey" },
+      handler: async () => ({ ok: true }),
+    });
+    expect(() => authorize(op, { apiKey: "dev-key" })).toThrow(AppError);
+    process.env.NODE_ENV = prev;
+    if (prevKey !== undefined) process.env.APP_API_KEY = prevKey;
+    if (prevKeys !== undefined) process.env.APP_API_KEYS = prevKeys;
   });
 
   it("isMcpEnabled requires explicit flag", () => {
