@@ -16,6 +16,8 @@ packages/ops  →  Registry  →  HTTP (Hono)
 ```bash
 pnpm install
 pnpm test
+bin/orient                 # agent/human orientation
+bin/work-items ready       # Beads backlog
 ```
 
 ### API

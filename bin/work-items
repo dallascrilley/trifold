@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+# Thin Beads adapter for selection verbs used by agent policy.
+# Prefer this over raw `bd` for ready / next / close / doctor.
+set -euo pipefail
+
+ROOT="$(CDPATH='' cd -P -- "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT"
+
+if ! command -v bd >/dev/null 2>&1; then
+  printf 'work-items: bd (beads) is not installed or not on PATH\n' >&2
+  exit 127
+fi
+
+if [[ ! -d .beads ]]; then
+  printf 'work-items: .beads not found; run bd init in this repo\n' >&2
+  exit 1
+fi
+
+usage() {
+  cat <<'EOF'
+Usage: bin/work-items <verb> [args...]
+
+Verbs:
+  ready              List ready work (bd ready)
+  next               Claim first ready issue (bd ready --claim)
+  close <id> [...]   Close issue(s) (bd close)
+  show <id>          Show issue (bd show)
+  doctor             Beads health (bd doctor)
+  reconcile          Export passive issues.jsonl when configured (bd export)
+  --help             This help
+
+Any other verb is forwarded to: bd <verb> ...
+EOF
+}
+
+verb="${1:-}"
+if [[ -z "$verb" || "$verb" == "--help" || "$verb" == "-h" ]]; then
+  usage
+  exit 0
+fi
+shift || true
+
+case "$verb" in
+  ready)
+    exec bd ready "$@"
+    ;;
+  next)
+    exec bd ready --claim "$@"
+    ;;
+  close)
+    if [[ $# -lt 1 ]]; then
+      printf 'work-items close: require at least one issue id\n' >&2
+      exit 2
+    fi
+    exec bd close "$@"
+    ;;
+  show)
+    exec bd show "$@"
+    ;;
+  doctor)
+    exec bd doctor "$@"
+    ;;
+  reconcile)
+    # Passive export for viewers; Dolt remains source of truth.
+    if bd export --help >/dev/null 2>&1; then
+      exec bd export "$@"
+    fi
+    printf 'work-items reconcile: bd export not available in this bd version\n' >&2
+    exit 1
+    ;;
+  *)
+    exec bd "$verb" "$@"
+    ;;
+esac
