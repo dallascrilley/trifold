@@ -18,6 +18,7 @@ pnpm install
 pnpm test
 bin/orient                 # agent/human orientation
 bin/work-items ready       # Beads backlog
+pnpm scaffold -- notes     # new product domain + api/cli/mcp apps
 ```
 
 ### API
@@ -105,16 +106,35 @@ registry.register({
 Default accepted key when none configured **and** `NODE_ENV !== production`: `dev-key`.  
 In production you must set `APP_API_KEY` or `APP_API_KEYS` or authenticated ops fail closed.
 
+## Scaffold a product
+
+```bash
+pnpm scaffold -- <slug> [--title "Title"] [--dry-run]
+# e.g. pnpm scaffold -- notes
+pnpm install
+pnpm --filter @cli-mcp/<slug> test
+pnpm --filter @app/<slug>-api dev
+APP_API_KEY=dev-key pnpm --filter @app/<slug>-cli start -- <slug> create "First" --json
+```
+
+Generates `packages/<slug>` (domain + sample list/get/create ops) and
+`apps/<slug>-{api,cli,mcp}`. The repo includes a **`notes`** product produced this way.
+
 ## Layout
 
 ```text
-apps/api|cli|mcp     process entrypoints
-packages/core        registry, context, errors, invoke, auth
-packages/ops         sample tasks domain
-packages/adapters-*  HTTP / CLI / MCP
-packages/openapi     OpenAPI emitter
-examples/tasks       golden snapshots
-docs/                requirements, design, plan
+apps/api|cli|mcp           tasks sample entrypoints
+apps/<product>-{api,cli,mcp}  scaffolded products (e.g. notes-*)
+packages/core              registry, context, errors, invoke, auth
+packages/ops               sample tasks domain
+packages/<product>         scaffolded domains (e.g. notes)
+packages/scaffold          product file generator
+packages/adapters-*        HTTP / CLI / MCP
+packages/openapi           OpenAPI emitter
+examples/tasks             golden snapshots
+docs/                      requirements, design, plan
+bin/orient                 orientation
+bin/work-items             Beads adapter
 ```
 
 ## Scripts
@@ -123,9 +143,10 @@ docs/                requirements, design, plan
 |---|---|
 | `pnpm test` | All package tests |
 | `pnpm typecheck` | `tsc --noEmit` everywhere |
-| `pnpm dev:api` | HTTP server |
-| `pnpm dev:cli` | CLI entry |
-| `pnpm dev:mcp` | MCP stdio server |
+| `pnpm scaffold -- <slug>` | New domain + API/CLI/MCP apps |
+| `pnpm dev:api` | Tasks HTTP server |
+| `pnpm dev:cli` | Tasks CLI entry |
+| `pnpm dev:mcp` | Tasks MCP stdio server |
 | `pnpm snapshot:update` | Regenerate OpenAPI + MCP tool goldens |
 
 ## Docs

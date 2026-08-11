@@ -40,12 +40,23 @@ Raw `bd` is fine for create/inspect when the adapter lacks a verb.
 
 **Handlers own business logic. Adapters own transport only.**
 
+## Scaffolding a product
+
+```bash
+pnpm scaffold -- <slug> [--title "Title"] [--dry-run]
+pnpm install
+pnpm --filter @cli-mcp/<slug> test
+```
+
+This creates `packages/<slug>` plus `apps/<slug>-{api,cli,mcp}`. Generator lives in
+`@cli-mcp/scaffold` (`packages/scaffold`). Do not hand-copy apps for new products.
+
 ## Adding an operation
 
-1. Define Zod input/output and handler in `packages/ops` (or a new ops package).
+1. Prefer scaffolding a product, or define ops in `packages/ops` / `packages/<product>`.
 2. Call `registry.register({...})` with `surfaces.http` / `cli` / `mcp` as needed.
 3. MCP: set `surfaces.mcp.enabled: true` only for intentional tools. Writes require `agentDescription`.
-4. Update snapshots if HTTP or MCP surface set changes:
+4. Update snapshots if HTTP or MCP surface set changes (tasks sample):
    ```bash
    pnpm snapshot:update
    ```
