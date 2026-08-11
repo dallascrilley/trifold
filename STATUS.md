@@ -1,24 +1,29 @@
-# cli-mcp-projects status
+# Project status
 
-- Status: active
-- Owner: dallascrilley
-- Last verified: 2026-08-11
-- Current Linear outcome: none
-- Current Beads claim: none — OpenAPI→Zod epic complete
-- Remote: https://github.com/dallascrilley/cli-mcp-projects (private)
-- Base branch: `main` (PR #1–#9 merged)
-- Next safe action: real product domain, Linear, or discriminator/format support in JSON Schema→Zod
-- Blockers: none recorded
-- Working tree: clean on `main`
-- Backup: GitHub origin; Beads Dolt; `.beads/issues.jsonl`
+- **Status:** active (public boilerplate)
+- **Owner:** dallascrilley
+- **Last verified:** 2026-08-11
+- **Default branch:** `main`
+- **Repository:** https://github.com/dallascrilley/cli-mcp-projects
+- **Beads:** use `bin/work-items ready` (execution ledger; optional for contributors)
+- **Next focus:** external feedback, real product domains, optional Linear wiring
+- **Blockers:** none
 
-## Product pointer
+## What shipped
 
-| Capability | How |
+| Area | State |
 |---|---|
-| Scaffold | `pnpm scaffold -- <slug>` |
-| OpenAPI import | `pnpm openapi:import -- <file>` (JSON Schema → Zod) |
-| File stores | `JsonFileMapStore`; `TASKS_STORE_PATH` / `NOTES_STORE_PATH` |
-| MCP | `pnpm dev:mcp` / `pnpm dev:mcp:http` |
+| Operation Registry → HTTP / CLI / MCP | Done |
+| OpenAPI emit + import (JSON Schema → Zod) | Done |
+| Product scaffolder | Done |
+| Shared JSON file stores | Done |
+| CI (typecheck + test) | Done |
+| Public release hygiene (LICENSE, CONTRIBUTING, SECURITY, SOP) | In progress / this branch |
 
-Orientation: `bin/orient`. Beads: `bin/work-items ready` (empty).
+## Quick proof
+
+```bash
+pnpm install && pnpm validate
+```
+
+This file is a compact pointer. Git history and CI are the durable evidence of quality.
