@@ -43,6 +43,14 @@ describe("planProductFiles", () => {
     expect(ops).toContain('id: "notes.list"');
     expect(ops).toContain('id: "notes.create"');
     expect(ops).toContain('path: "/notes"');
+
+    const store = files.find((f) => f.path.endsWith("store.ts"))!.content;
+    expect(store).toContain("filePath");
+    expect(store).toContain("notesStoreFromEnv");
+    expect(store).toContain("NOTES_STORE_PATH");
+
+    const api = files.find((f) => f.path === "apps/notes-api/src/index.ts")!.content;
+    expect(api).toContain("notesStoreFromEnv");
   });
 });
 

@@ -1,4 +1,4 @@
-export { NotesStore } from "./store.js";
+export { NotesStore, notesStoreFromEnv, type NotesStoreOptions } from "./store.js";
 export {
   CreateNotesInput,
   GetNotesInput,

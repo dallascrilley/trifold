@@ -4,26 +4,24 @@
 - Owner: dallascrilley
 - Last verified: 2026-08-11
 - Current Linear outcome: none
-- Current Beads claim: none — post-v1 epic `cli-mcp-8sa` complete (no open beads)
+- Current Beads claim: none (v1.1 store parity epic `cli-mcp-8tb` closed — landing)
 - Remote: https://github.com/dallascrilley/cli-mcp-projects (private)
-- Base branch: `main` (PR #1–#6 merged)
-- Next safe action: productize a real domain (`pnpm scaffold`) or wire Linear; backlog empty
+- Base branch: `main` (PR #1–#6; #7 store parity pending)
+- Next safe action: after merge, choose new product domain or Linear wiring
 - Blockers: none recorded
-- Working tree: clean on `main`
+- Working tree: `feat/product-store-parity`
 - Backup: GitHub origin; Beads Dolt; `.beads/issues.jsonl`
 
 ## Product pointer
 
-Single-schema TypeScript monorepo: **Operation Registry (Zod) → HTTP + CLI + MCP**, OpenAPI emit **and** import.
+Single-schema TypeScript monorepo: **Operation Registry (Zod) → HTTP + CLI + MCP**.
 
-| Capability | Command / package |
+| Capability | How |
 |---|---|
-| Scaffold product | `pnpm scaffold -- <slug>` |
-| Import OpenAPI stubs | `pnpm openapi:import -- <file>` |
-| Shared task store | `TASKS_STORE_PATH=.data/tasks.json` |
-| MCP stdio / HTTP | `pnpm dev:mcp` / `pnpm dev:mcp:http` |
-| Samples | `tasks` (`packages/ops`), `notes` |
+| Scaffold | `pnpm scaffold -- <slug>` (file store + env wired) |
+| OpenAPI import | `pnpm openapi:import -- <file>` |
+| Tasks store | `TASKS_STORE_PATH=.data/tasks.json` |
+| Notes store | `NOTES_STORE_PATH=.data/notes.json` |
+| MCP | `pnpm dev:mcp` / `pnpm dev:mcp:http` |
 
-Docs: `docs/brainstorms/…`, `docs/plans/…`. Orientation: `bin/orient`.
-
-This file is an orientation pointer. Beads remains authoritative for execution work.
+Orientation: `bin/orient`. Beads: `bin/work-items ready`.
