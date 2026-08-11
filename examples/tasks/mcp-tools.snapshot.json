@@ -1,0 +1,14 @@
+[
+  {
+    "name": "tasks_create",
+    "description": "Create a task with a title and optional due date string. Use only for new work items."
+  },
+  {
+    "name": "tasks_get",
+    "description": "Fetch one task by its id."
+  },
+  {
+    "name": "tasks_list",
+    "description": "List all tasks. Use when you need the current task inventory."
+  }
+]
