@@ -83,4 +83,20 @@ describe("openApiToOperations", () => {
     expect(src).toContain("tasks.list");
     expect(src).toContain("openApiToOperations");
   });
+
+  it("imported tasks.create input rejects missing title (JSON Schema → Zod)", () => {
+    const doc = parseOpenAPIJson(readFileSync(snapshotPath, "utf8"));
+    const create = openApiToOperations(doc).find((s) => s.id === "tasks.create")!;
+    expect(create.input.safeParse({ title: "ok" }).success).toBe(true);
+    expect(create.input.safeParse({ title: "" }).success).toBe(false);
+    expect(create.input.safeParse({}).success).toBe(false);
+    expect(create.input.safeParse({ title: "ok", due: "2026-01-01" }).success).toBe(true);
+  });
+
+  it("imported tasks.get requires path id", () => {
+    const doc = parseOpenAPIJson(readFileSync(snapshotPath, "utf8"));
+    const get = openApiToOperations(doc).find((s) => s.id === "tasks.get")!;
+    expect(get.input.safeParse({ id: "abc" }).success).toBe(true);
+    expect(get.input.safeParse({}).success).toBe(false);
+  });
 });

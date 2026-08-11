@@ -13,3 +13,9 @@ export {
   type ImportOpenAPIOptions,
   type LooseOpenAPI,
 } from "./import.js";
+export {
+  jsonSchemaToZod,
+  resolveSchema,
+  type JsonSchema,
+  type JsonSchemaToZodOptions,
+} from "./json-schema-zod.js";
