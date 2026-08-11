@@ -143,8 +143,9 @@ Generates `packages/<slug>` (domain + sample list/get/create ops) and
 ## Import OpenAPI → operation stubs
 
 When you already have an OpenAPI document, import **registry stubs** (HTTP/CLI
-surfaces; handlers throw `NOT_IMPLEMENTED` until you implement them). MCP stays
-off by default (pass `--mcp` to enable).
+surfaces; handlers throw `NOT_IMPLEMENTED` until you implement them). Request and
+response JSON Schemas are converted to Zod (subset: objects, arrays, enums,
+`$ref`, minLength, etc.). MCP stays off by default (pass `--mcp` to enable).
 
 ```bash
 pnpm openapi:import -- examples/tasks/openapi.snapshot.json
