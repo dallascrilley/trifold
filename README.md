@@ -21,6 +21,19 @@ bin/work-items ready       # Beads backlog
 pnpm scaffold -- notes     # new product domain + api/cli/mcp apps
 ```
 
+### Shared task store (API ↔ CLI)
+
+By default each process uses **in-memory** storage. To share tasks across
+processes, point both at the same JSON file:
+
+```bash
+export TASKS_STORE_PATH=.data/tasks.json
+export APP_API_KEY=dev-key
+pnpm dev:api
+# other terminal:
+pnpm --filter @app/cli start -- tasks list --json
+```
+
 ### API
 
 ```bash
@@ -39,6 +52,7 @@ curl -s -X POST http://localhost:8787/tasks \
 
 ```bash
 export APP_API_KEY=dev-key
+# optional: export TASKS_STORE_PATH=.data/tasks.json
 pnpm --filter @app/cli start -- tasks create "Ship boilerplate" --json
 pnpm --filter @app/cli start -- tasks list --json
 pnpm --filter @app/cli start -- tasks complete <id> --json

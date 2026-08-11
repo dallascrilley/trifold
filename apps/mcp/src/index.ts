@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { runMcpMain } from "@cli-mcp/adapters-mcp";
-import { createTasksRegistry } from "@cli-mcp/ops";
+import { createTasksRegistry, tasksStoreFromEnv } from "@cli-mcp/ops";
 
-const { registry } = createTasksRegistry();
+const store = tasksStoreFromEnv();
+const { registry } = createTasksRegistry(store);
 await runMcpMain({ registry, name: "tasks-mcp" });
