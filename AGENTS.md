@@ -4,6 +4,8 @@
 
 Run `bin/orient`, then read `STATUS.md` and `README.md`.
 
+Public release process (repeatable): `docs/runbooks/public-repo-release-sop.md`.
+
 Single-schema boilerplate: **Operation Registry** (Zod) → HTTP + CLI + MCP.
 
 - Requirements: `docs/brainstorms/2026-08-11-cli-mcp-api-boilerplate-requirements.md`
