@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { runMcpMain } from "@cli-mcp/adapters-mcp";
-import { createNotesRegistry } from "@cli-mcp/notes";
+import { createNotesRegistry, notesStoreFromEnv } from "@cli-mcp/notes";
 
-const { registry } = createNotesRegistry();
+const store = notesStoreFromEnv();
+const { registry } = createNotesRegistry(store);
 await runMcpMain({ registry, name: "notes-mcp" });

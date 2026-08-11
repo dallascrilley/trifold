@@ -6,9 +6,11 @@ export function planProductFiles(slug: string, title?: string): PlannedFile[] {
   const pascal = toPascal(slug);
   const resource = toResourcePath(slug); // notes, items
   const pkgName = `@cli-mcp/${slug}`;
-  const opNs = slug.replace(/-/g, "."); // order-items → order.items? better: use slug with underscore for op id
   // operation ids: notes.list style — use first segment or full with underscore
   const opId = slug.replace(/-/g, "_"); // notes, order_items
+  const envStoreKey = `${slug.replace(/-/g, "_").toUpperCase()}_STORE_PATH`; // NOTES_STORE_PATH
+  // NotesStore → notesStoreFromEnv
+  const storeFromEnv = `${pascal.charAt(0).toLowerCase()}${pascal.slice(1)}StoreFromEnv`;
 
   const files: PlannedFile[] = [];
 
@@ -100,12 +102,29 @@ export const Get${pascal}Input = z.object({
   files.push({
     path: `packages/${slug}/src/store.ts`,
     content: `import { AppError } from "@cli-mcp/core";
+import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { dirname } from "node:path";
 import type { ${pascal} } from "./schemas.js";
+import { ${pascal}Schema } from "./schemas.js";
+
+export type ${pascal}StoreOptions = {
+  /** JSON file path for multi-process sharing (API/CLI/MCP). */
+  filePath?: string;
+};
+
+type FilePayload = { version: 1; items: ${pascal}[] };
 
 export class ${pascal}Store {
   private readonly items = new Map<string, ${pascal}>();
+  private readonly filePath?: string;
+
+  constructor(options: ${pascal}StoreOptions = {}) {
+    this.filePath = options.filePath;
+    this.reload();
+  }
 
   create(input: { title: string; body?: string }): ${pascal} {
+    this.reload();
     const item: ${pascal} = {
       id: crypto.randomUUID(),
       title: input.title,
@@ -113,14 +132,17 @@ export class ${pascal}Store {
       ...(input.body !== undefined ? { body: input.body } : {}),
     };
     this.items.set(item.id, item);
+    this.persist();
     return item;
   }
 
   list(): ${pascal}[] {
+    this.reload();
     return [...this.items.values()];
   }
 
   get(id: string): ${pascal} {
+    this.reload();
     const item = this.items.get(id);
     if (!item) {
       throw new AppError("NOT_FOUND", \`${pascal} not found: \${id}\`, { status: 404 });
@@ -130,7 +152,51 @@ export class ${pascal}Store {
 
   clear(): void {
     this.items.clear();
+    this.persist();
   }
+
+  get persistencePath(): string | undefined {
+    return this.filePath;
+  }
+
+  private reload(): void {
+    if (!this.filePath) return;
+    if (!existsSync(this.filePath)) {
+      this.items.clear();
+      return;
+    }
+    try {
+      const raw = readFileSync(this.filePath, "utf8");
+      const parsed = JSON.parse(raw) as FilePayload;
+      this.items.clear();
+      for (const row of Array.isArray(parsed.items) ? parsed.items : []) {
+        const item = ${pascal}Schema.parse(row);
+        this.items.set(item.id, item);
+      }
+    } catch (err) {
+      throw new AppError("STORE_CORRUPT", \`Failed to read store: \${this.filePath}\`, {
+        status: 500,
+        details: err instanceof Error ? err.message : err,
+      });
+    }
+  }
+
+  private persist(): void {
+    if (!this.filePath) return;
+    mkdirSync(dirname(this.filePath), { recursive: true });
+    const payload: FilePayload = { version: 1, items: [...this.items.values()] };
+    const tmp = \`\${this.filePath}.\${process.pid}.\${Date.now()}.tmp\`;
+    writeFileSync(tmp, \`\${JSON.stringify(payload, null, 2)}\\n\`, "utf8");
+    renameSync(tmp, this.filePath);
+  }
+}
+
+/** Resolve store from ${envStoreKey} (or empty → memory). */
+export function ${storeFromEnv}(
+  env: NodeJS.ProcessEnv = process.env,
+): ${pascal}Store {
+  const filePath = env.${envStoreKey}?.trim() || env.CLI_MCP_STORE_PATH?.trim();
+  return new ${pascal}Store(filePath ? { filePath } : {});
 }
 `,
   });
@@ -219,7 +285,7 @@ export function create${pascal}Registry(store = new ${pascal}Store()): {
 
   files.push({
     path: `packages/${slug}/src/index.ts`,
-    content: `export { ${pascal}Store } from "./store.js";
+    content: `export { ${pascal}Store, ${storeFromEnv}, type ${pascal}StoreOptions } from "./store.js";
 export {
   Create${pascal}Input,
   Get${pascal}Input,
@@ -331,10 +397,11 @@ describe("${slug} domain", () => {
         path: `${appDir}/src/index.ts`,
         content: `import { createHttpApp } from "@cli-mcp/adapters-http";
 import { emitOpenAPI } from "@cli-mcp/openapi";
-import { create${pascal}Registry } from "${pkgName}";
+import { create${pascal}Registry, ${storeFromEnv} } from "${pkgName}";
 import { serve } from "@hono/node-server";
 
-const { registry } = create${pascal}Registry();
+const store = ${storeFromEnv}();
+const { registry } = create${pascal}Registry(store);
 const openapi = emitOpenAPI(registry, { title: "${name} API", version: "0.1.0" });
 const app = createHttpApp(registry, { openapiDocument: openapi });
 
@@ -343,6 +410,11 @@ const port = Number(process.env.PORT ?? 8788);
 serve({ fetch: app.fetch, port }, (info) => {
   console.error(\`${name} API listening on http://localhost:\${info.port}\`);
   console.error(\`OpenAPI: http://localhost:\${info.port}/openapi.json\`);
+  if (store.persistencePath) {
+    console.error(\`Store: \${store.persistencePath}\`);
+  } else {
+    console.error("Store: memory (set ${envStoreKey} to share with CLI)");
+  }
 });
 `,
       });
@@ -392,9 +464,10 @@ serve({ fetch: app.fetch, port }, (info) => {
         path: `${appDir}/src/index.ts`,
         content: `#!/usr/bin/env node
 import { createCli } from "@cli-mcp/adapters-cli";
-import { create${pascal}Registry } from "${pkgName}";
+import { create${pascal}Registry, ${storeFromEnv} } from "${pkgName}";
 
-const { registry } = create${pascal}Registry();
+const store = ${storeFromEnv}();
+const { registry } = create${pascal}Registry(store);
 const cli = createCli(registry, { name: "${slug}-cli", version: "0.1.0" });
 
 const code = await cli.run(process.argv.slice(2));
@@ -444,9 +517,10 @@ process.exit(code);
         path: `${appDir}/src/index.ts`,
         content: `#!/usr/bin/env node
 import { runMcpMain } from "@cli-mcp/adapters-mcp";
-import { create${pascal}Registry } from "${pkgName}";
+import { create${pascal}Registry, ${storeFromEnv} } from "${pkgName}";
 
-const { registry } = create${pascal}Registry();
+const store = ${storeFromEnv}();
+const { registry } = create${pascal}Registry(store);
 await runMcpMain({ registry, name: "${slug}-mcp" });
 `,
       });
