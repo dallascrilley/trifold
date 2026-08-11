@@ -8,6 +8,7 @@ coverage/
 !.env.example
 *.log
 .turbo/
+.data/
 
 # Beads / Dolt files (added by bd init)
 .dolt/
