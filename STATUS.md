@@ -4,18 +4,20 @@
 - Owner: dallascrilley
 - Last verified: 2026-08-11
 - Current Linear outcome: none
-- Current Beads claim: `cli-mcp-8sa.2` scaffolder (in progress on `feat/scaffold-product`)
+- Current Beads claim: none (`cli-mcp-8sa.2` scaffolder closed)
 - Remote: https://github.com/dallascrilley/cli-mcp-projects (private)
-- Base branch: `main` (PR #1 boilerplate + PR #2 agent-ops)
-- Next safe action: land scaffolder PR; then `cli-mcp-8sa.3` (MCP HTTP) or pick from `bin/work-items ready`
+- Base branch: `main` (PR #1 boilerplate, #2 agent-ops, #3 scaffolder)
+- Next safe action: `bin/work-items ready` → prefer `cli-mcp-8sa.3` (MCP HTTP/SSE)
 - Blockers: none recorded
-- Working tree: `feat/scaffold-product`
+- Working tree: clean on `main`
 - Backup: GitHub origin; Beads Dolt remote on origin; `.beads/issues.jsonl` passive export
 
 ## Product pointer
 
 Single-schema TypeScript monorepo: **Operation Registry (Zod) → HTTP + CLI + MCP**, OpenAPI emitted.
 
+- Scaffold products: `pnpm scaffold -- <slug>`
+- Sample products: `tasks` (`packages/ops`), `notes` (scaffolded)
 - Requirements: `docs/brainstorms/2026-08-11-cli-mcp-api-boilerplate-requirements.md`
 - Design: `docs/plans/2026-08-11-cli-mcp-api-boilerplate-design.md`
 - Plan: `docs/plans/2026-08-11-feat-cli-mcp-api-boilerplate-plan.md`
