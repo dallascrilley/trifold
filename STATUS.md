@@ -6,10 +6,10 @@
 - Current Linear outcome: none
 - Current Beads claim: none (agent-ops closed: `cli-mcp-8sa.1`, `.6`, `.7`)
 - Remote: https://github.com/dallascrilley/cli-mcp-projects (private)
-- Base branch: `main` (PR #1 merged — Operation Registry boilerplate)
+- Base branch: `main` (PR #1 boilerplate + PR #2 agent-ops merged)
 - Next safe action: `bin/work-items ready` → prefer `cli-mcp-8sa.2` (scaffolder) or `cli-mcp-8sa.3` (MCP HTTP)
 - Blockers: none recorded
-- Working tree: land `chore/agent-ops-and-backlog` then return to main
+- Working tree: clean on `main`
 - Backup: GitHub origin; Beads Dolt remote on origin; `.beads/issues.jsonl` passive export
 
 ## Product pointer
