@@ -25,3 +25,8 @@ export {
   type AuthResult,
   type Credentials,
 } from "./auth.js";
+export {
+  JsonFileMapStore,
+  storePathFromEnv,
+  type JsonFileMapStoreOptions,
+} from "./json-file-store.js";
