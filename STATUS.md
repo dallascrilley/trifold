@@ -1,24 +1,27 @@
-# cli-mcp-projects status
+# Project status
 
-- Status: active
-- Owner: dallascrilley
-- Last verified: 2026-08-11
-- Current Linear outcome: none
-- Current Beads claim: none (`cli-mcp-uan` OpenAPI→Zod landing)
-- Remote: https://github.com/dallascrilley/cli-mcp-projects (private)
-- Base branch: `main` (PR #1–#8; #9 OpenAPI→Zod pending)
-- Next safe action: after merge — product domain, Linear, or polish
-- Blockers: none recorded
-- Working tree: `feat/openapi-json-schema-zod`
-- Backup: GitHub origin; Beads Dolt; `.beads/issues.jsonl`
+- **Status:** active (private; public-ready prep complete)
+- **Owner:** dallascrilley
+- **Last verified:** 2026-08-11
+- **Repository:** https://github.com/dallascrilley/cli-mcp-projects (**private** until explicit approval to go public)
+- **Default branch:** `main`
+- **Beads:** `bin/work-items ready` (optional execution ledger)
+- **Next focus:** external feedback when public is approved; optional product domains
+- **Blockers:** none
+- **Flair:** logo, architecture hero, demo GIF, OG card under `docs/assets/`
+- **Release gates:** `pnpm validate` (typecheck, test, secret scan, AI-slop scan); presentable `git log`
 
-## Product pointer
+## Quality
 
-| Capability | How |
-|---|---|
-| Scaffold | `pnpm scaffold -- <slug>` |
-| OpenAPI import | `pnpm openapi:import -- <file>` (JSON Schema → Zod) |
-| File stores | `JsonFileMapStore`; `TASKS_STORE_PATH` / `NOTES_STORE_PATH` |
-| MCP | `pnpm dev:mcp` / `pnpm dev:mcp:http` |
+```bash
+pnpm install && pnpm validate
+pnpm scan:ai-slop:all   # optional: include commit-history scan
+```
 
-Orientation: `bin/orient`. Beads: `bin/work-items ready`.
+## Release process
+
+Repeatable checklist: [docs/runbooks/public-repo-release-sop.md](./docs/runbooks/public-repo-release-sop.md)
+
+**Visibility rule:** prep may complete while the repo stays private. Do **not** flip to public without explicit owner approval.
+
+Git history and CI are the durable evidence of quality.

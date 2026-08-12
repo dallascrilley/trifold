@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-label="Architecture: Operation Registry to HTTP CLI MCP">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B0F14"/>
+      <stop offset="100%" stop-color="#121821"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+    <style>
+      .title { font: 700 22px ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif; fill: #E8EEF7; }
+      .sub { font: 500 13px ui-sans-serif, system-ui, sans-serif; fill: #93A0B4; }
+      .label { font: 600 14px ui-sans-serif, system-ui, sans-serif; fill: #E8EEF7; }
+      .mini { font: 500 12px ui-sans-serif, system-ui, sans-serif; fill: #93A0B4; }
+      .mono { font: 600 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #C7D7FF; }
+    </style>
+  </defs>
+
+  <rect width="960" height="420" rx="20" fill="url(#bg)"/>
+  <rect x="1" y="1" width="958" height="418" rx="20" fill="none" stroke="#243041" stroke-width="2"/>
+
+  <text x="40" y="48" class="title">One operation · three surfaces</text>
+  <text x="40" y="72" class="sub">Zod-validated handlers stay in the registry. Adapters only handle transport.</text>
+
+  <!-- Domain ops -->
+  <g filter="url(#soft)">
+    <rect x="40" y="110" width="200" height="90" rx="14" fill="#16202C" stroke="#2E3B4E"/>
+  </g>
+  <text x="60" y="145" class="label">Domain ops</text>
+  <text x="60" y="168" class="mini">packages/ops · notes · …</text>
+  <text x="60" y="188" class="mono">handler + Zod IO</text>
+
+  <!-- Registry -->
+  <g filter="url(#soft)">
+    <rect x="320" y="100" width="320" height="110" rx="16" fill="#15233A" stroke="#5B8CFF" stroke-width="2"/>
+  </g>
+  <text x="340" y="140" class="label">Operation Registry</text>
+  <text x="340" y="164" class="mini">@cli-mcp/core · invoke · auth · meta</text>
+  <text x="340" y="186" class="mono">register({ id, input, output, surfaces, handler })</text>
+
+  <!-- OpenAPI -->
+  <g filter="url(#soft)">
+    <rect x="720" y="110" width="200" height="90" rx="14" fill="#16202C" stroke="#2E3B4E"/>
+  </g>
+  <text x="740" y="145" class="label">OpenAPI 3.1</text>
+  <text x="740" y="168" class="mini">emit · import · JSON Schema→Zod</text>
+  <text x="740" y="188" class="mono">@cli-mcp/openapi</text>
+
+  <!-- arrows to registry -->
+  <path d="M240 155 H320" stroke="#5B8CFF" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M640 155 H720" stroke="#5B8CFF" stroke-width="2.5" fill="none"/>
+  <!-- bidirectional hint -->
+  <path d="M720 165 H640" stroke="#5B8CFF" stroke-width="2.5" fill="none" opacity="0.35"/>
+
+  <!-- three surface cards -->
+  <g filter="url(#soft)">
+    <rect x="80" y="280" width="240" height="100" rx="14" fill="#13251C" stroke="#2F5A45"/>
+  </g>
+  <circle cx="110" cy="312" r="7" fill="#7CFFB2"/>
+  <text x="128" y="318" class="label">HTTP API</text>
+  <text x="100" y="348" class="mini">Hono · OpenAPI · /healthz</text>
+  <text x="100" y="368" class="mono">adapters-http</text>
+
+  <g filter="url(#soft)">
+    <rect x="360" y="280" width="240" height="100" rx="14" fill="#2A2114" stroke="#6A542E"/>
+  </g>
+  <circle cx="390" cy="312" r="7" fill="#FFD27C"/>
+  <text x="408" y="318" class="label">CLI</text>
+  <text x="380" y="348" class="mini">citty · flags · formats</text>
+  <text x="380" y="368" class="mono">adapters-cli</text>
+
+  <g filter="url(#soft)">
+    <rect x="640" y="280" width="240" height="100" rx="14" fill="#2A1520" stroke="#6A3144"/>
+  </g>
+  <circle cx="670" cy="312" r="7" fill="#FF8FA3"/>
+  <text x="688" y="318" class="label">MCP</text>
+  <text x="660" y="348" class="mini">stdio · Streamable HTTP</text>
+  <text x="660" y="368" class="mono">adapters-mcp · curated tools</text>
+
+  <!-- fan-out lines -->
+  <path d="M480 210 V250" stroke="#5B8CFF" stroke-width="2.5" fill="none"/>
+  <path d="M200 250 H760" stroke="#5B8CFF" stroke-width="2.5" fill="none"/>
+  <path d="M200 250 V280" stroke="#7CFFB2" stroke-width="2.5" fill="none"/>
+  <path d="M480 250 V280" stroke="#FFD27C" stroke-width="2.5" fill="none"/>
+  <path d="M760 250 V280" stroke="#FF8FA3" stroke-width="2.5" fill="none"/>
+</svg>

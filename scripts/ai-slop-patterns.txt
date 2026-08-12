@@ -1,0 +1,65 @@
+# AI-slop pattern catalog for scripts/scan-ai-slop.sh
+# Lines: FAIL=<regex fragment> | WARN=<fragment> | HISTORY=<fragment>
+# Comments and blank lines ignored. Case-insensitive at scan time.
+# Keep FAIL short and specific — false positives erode trust in the gate.
+
+# --- High-confidence tree failures ---
+FAIL=as an AI language model
+FAIL=I am an AI
+FAIL=as an AI,
+FAIL=I'm an AI
+FAIL=Hope this helps
+FAIL=Feel free to reach out
+FAIL=Let's dive in
+FAIL=Lets dive in
+FAIL=Without further ado
+FAIL=In today's fast-paced
+FAIL=harness the power
+FAIL=unlock the full potential
+FAIL=unlock the power
+FAIL=game-changer
+FAIL=game changer
+FAIL=best-in-class
+FAIL=world-class
+FAIL=cutting-edge
+FAIL=revolutionize
+FAIL=in the realm of
+FAIL=tapestry of
+FAIL=delve into
+FAIL=delving into
+FAIL=It's important to note
+FAIL=It is important to note
+FAIL=It is worth noting
+FAIL=It's worth noting
+FAIL=Needless to say
+FAIL=First and foremost
+FAIL=At the end of the day
+FAIL=In conclusion,
+FAIL=moving forward, we
+FAIL=robust and scalable
+FAIL=this comprehensive guide
+FAIL=leverage the power
+FAIL=dive deep into
+FAIL=seamlessly integrate
+FAIL=utilize the power
+FAIL=empower your
+FAIL=synergize
+
+# --- Soft warnings (do not fail CI) ---
+WARN=seamlessly
+WARN=leverage
+WARN=cutting edge
+WARN=state-of-the-art
+WARN=out of the box experience
+WARN=holistic approach
+
+# --- Commit history failures (agent choreography / session diary) ---
+HISTORY=docs\(status\):
+HISTORY=backlog empty
+HISTORY=landed on main
+HISTORY=landed; backlog
+HISTORY=repository is public
+HISTORY=mark .* landed
+HISTORY=post-v1 epic complete
+HISTORY=next is MCP
+HISTORY=OpenAPI import next

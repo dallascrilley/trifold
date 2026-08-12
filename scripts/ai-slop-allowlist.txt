@@ -1,0 +1,6 @@
+# Exact substring matches against a reported finding line (path:line:content).
+# Prefer a unique path:line or distinctive snippet — not a whole phrase that
+# would mask real hits elsewhere.
+#
+# Example:
+# docs/demo.md:12:leverage

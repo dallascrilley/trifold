@@ -1,15 +1,40 @@
 {
   "name": "cli-mcp-projects",
   "private": true,
+  "version": "0.1.0",
+  "description": "Single-schema TypeScript boilerplate: Operation Registry → HTTP API, CLI, and MCP server",
   "type": "module",
   "packageManager": "pnpm@11.20.0",
   "engines": {
     "node": ">=22"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dallascrilley/cli-mcp-projects.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dallascrilley/cli-mcp-projects/issues"
+  },
+  "homepage": "https://github.com/dallascrilley/cli-mcp-projects#readme",
+  "license": "MIT",
+  "author": "Dallas Crilley",
+  "keywords": [
+    "mcp",
+    "cli",
+    "openapi",
+    "typescript",
+    "hono",
+    "zod",
+    "boilerplate",
+    "operation-registry"
+  ],
   "scripts": {
     "build": "pnpm -r run build",
     "test": "pnpm -r run test",
     "typecheck": "pnpm -r run typecheck",
+    "validate": "bash scripts/validate.sh",
+    "scan:ai-slop": "bash scripts/scan-ai-slop.sh",
+    "scan:ai-slop:all": "bash scripts/scan-ai-slop.sh --all",
     "dev:api": "pnpm --filter @app/api dev",
     "dev:cli": "pnpm --filter @app/cli start",
     "dev:mcp": "pnpm --filter @app/mcp start",

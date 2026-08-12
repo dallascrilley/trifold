@@ -5,24 +5,18 @@ domain: products
 status: active
 owner: dallascrilley
 created: 2026-08-11
-canonical_path: /Users/dallascrilley/orca/projects/cli-mcp-projects
+# Portable identity — no machine-local absolute paths in the public tree.
+canonical_path: .
 remote: https://github.com/dallascrilley/cli-mcp-projects.git
 data_classification: internal
 backup: github
-generated_state_root: /Users/dallascrilley/.local/state/agents/cli-mcp-projects
 linear:
-  team: Workspace
+  team: null
   project: null
 beads:
   prefix: cli-mcp
-  epic: cli-mcp-8sa
-  recovery_remote: git+https://github.com/dallascrilley/cli-mcp-projects.git
 credentials:
-  provider: 1password
-  vault: Agent Automation
+  provider: none
   references: []
-receipts:
-  root: /Users/dallascrilley/Backups/Receipts/cli-mcp-projects
 adr:
   project: docs/adr
-  workspace: /Users/dallascrilley/Workspace/_shared/adr
