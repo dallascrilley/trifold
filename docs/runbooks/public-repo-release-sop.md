@@ -4,7 +4,7 @@
 
 **Audience:** Agents and humans shipping Dallas-owned repositories (`dallascrilley` / `dallascrilleymartech`).
 
-**Default posture:** Repos stay **private** until this SOP completes and an explicit public-release decision is made. This document is the decision gate.
+**Default posture:** Repos stay **private** until Dallas gives **explicit approval to change visibility** (e.g. “make it public”, “publish now”). Completing this SOP’s prep steps is **not** permission to flip public. This document is the decision gate.
 
 ---
 
@@ -120,20 +120,28 @@ Optional but strong signals:
 ## 6. GitHub repository settings
 
 ```bash
-# Description + topics
+# Description + topics (safe while private)
 gh repo edit --description "…" --add-topic typescript --add-topic mcp --add-topic cli
-
-# Visibility (only after sections 1–5 are green)
-gh repo edit --visibility public --accept-visibility-change-consequences
 ```
 
 - [ ] Description and topics set.
 - [ ] Default branch protected if the repo will accept external PRs (optional for personal showcases).
-- [ ] Actions enabled; first public CI run watched.
+- [ ] Actions enabled.
 - [ ] No accidental org secrets exposed to forks (review Actions secrets).
-- [ ] Visibility flipped **only after** scrub + quality + docs.
+- [ ] **Visibility remains private** until Dallas explicitly approves going public.
 
-**Done when:** `gh repo view --json isPrivate` → `false` and the About blurb is correct.
+**Prep done when:** scrub + quality + docs are green and `isPrivate` is still `true`.
+
+### 6b. Visibility flip (explicit approval only)
+
+Run **only** after a clear go-ahead for visibility (not merely “prep for public”):
+
+```bash
+gh repo edit --visibility public --accept-visibility-change-consequences
+gh repo view --json isPrivate,visibility,url
+```
+
+**Done when:** `isPrivate` → `false` **and** that change was explicitly requested.
 
 ---
 
@@ -172,8 +180,9 @@ When an agent runs this SOP:
 1. Create a feature branch; do not force-push main.
 2. Prefer one PR: “chore: public release prep”.
 3. Cite evidence (commands + results) in the PR body against this checklist.
-4. Flip visibility only when checklist items above are completed or explicitly deferred in the PR with owner approval.
+4. **Do not flip visibility** unless Dallas explicitly approved the public change for this repo in the current request (or a standing instruction naming this repo). Checklist green alone is insufficient.
 5. Never commit the Beads Dolt database; export `issues.jsonl` is fine if used.
+6. If the repo is found public without approval, set it private immediately and report.
 
 ---
 
@@ -188,7 +197,8 @@ When an agent runs this SOP:
 [ ] .env.example placeholders only
 [ ] GitHub description/topics
 [ ] Fresh clone quickstart works
-[ ] Visibility → public
+[ ] Repo still private (default)
+[ ] Visibility → public  **only after explicit Dallas approval**
 ```
 
 ---
