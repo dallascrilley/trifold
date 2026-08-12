@@ -13,7 +13,7 @@ import {
   openApiToOperations,
   parseOpenAPIJson,
 } from "../packages/openapi/src/index.ts";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 
 function usage(): never {
@@ -70,6 +70,10 @@ for (let i = 0; i < args.length; i++) {
 if (!file) usage();
 
 const abs = resolve(file);
+if (!existsSync(abs) || !statSync(abs).isFile()) {
+  console.error(`openapi:import: no such OpenAPI file: ${abs}`);
+  process.exit(1);
+}
 const doc = parseOpenAPIJson(readFileSync(abs, "utf8"));
 const stubs = openApiToOperations(doc, { enableMcp, tags });
 

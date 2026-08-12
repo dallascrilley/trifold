@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
-import { dirname } from "node:path";
+import { dirname, isAbsolute, resolve } from "node:path";
 import type { z } from "zod";
 import { AppError } from "./errors.js";
 
@@ -117,14 +117,33 @@ export class JsonFileMapStore<T extends { id: string }> {
   }
 }
 
-/** Read a single env path for stores: PRIMARY or fallback CLI_MCP_STORE_PATH. */
+/**
+ * Anchor a store path so every process in the workspace agrees on one file.
+ *
+ * A relative path is resolved against the directory the command was launched
+ * from — `INIT_CWD`, which pnpm/npm set to the original cwd — instead of
+ * `process.cwd()`. Package runners such as `pnpm --filter <pkg> start` execute
+ * with the package directory as cwd, so a bare `.data/tasks.json` would
+ * otherwise become `apps/api/.data/tasks.json` for the API and
+ * `apps/cli/.data/tasks.json` for the CLI: one env var, two divergent stores.
+ * Absolute paths are returned unchanged.
+ */
+export function resolveStorePath(filePath: string, env: NodeJS.ProcessEnv = process.env): string {
+  if (isAbsolute(filePath)) return filePath;
+  const base = env.INIT_CWD?.trim() || process.cwd();
+  return resolve(base, filePath);
+}
+
+/**
+ * Read a single env path for stores: PRIMARY or fallback CLI_MCP_STORE_PATH.
+ * Relative values are anchored with {@link resolveStorePath}.
+ */
 export function storePathFromEnv(
   env: NodeJS.ProcessEnv,
   primaryKey: string,
   fallbackKey = "CLI_MCP_STORE_PATH",
 ): string | undefined {
-  const primary = env[primaryKey]?.trim();
-  if (primary) return primary;
-  const fallback = env[fallbackKey]?.trim();
-  return fallback || undefined;
+  const raw = env[primaryKey]?.trim() || env[fallbackKey]?.trim();
+  if (!raw) return undefined;
+  return resolveStorePath(raw, env);
 }

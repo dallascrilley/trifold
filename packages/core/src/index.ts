@@ -27,6 +27,7 @@ export {
 } from "./auth.js";
 export {
   JsonFileMapStore,
+  resolveStorePath,
   storePathFromEnv,
   type JsonFileMapStoreOptions,
 } from "./json-file-store.js";
