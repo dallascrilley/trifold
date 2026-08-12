@@ -1,0 +1,27 @@
+{
+  "name": "@cli-mcp/adapters-cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "build": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@cli-mcp/core": "workspace:*",
+    "citty": "^0.1.6",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@cli-mcp/ops": "workspace:*",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
+  }
+}
