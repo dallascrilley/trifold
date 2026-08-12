@@ -94,7 +94,7 @@ Regenerate the GIF (optional): `vhs docs/assets/demo.tape` from the repo root.
 git clone https://github.com/dallascrilley/trifold.git
 cd trifold
 pnpm install
-pnpm validate   # typecheck + test + secret-pattern scan + AI-slop scan
+pnpm validate   # typecheck + test + secret-pattern scan
 ```
 
 ### Tasks sample (API + CLI)
@@ -266,7 +266,7 @@ Deep dive: **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)** · walkthrough: **
 
 | Command | Purpose |
 |---|---|
-| `pnpm validate` | Typecheck + test + secret-pattern scan + AI-slop scan (`scripts/scan-ai-slop.sh`) |
+| `pnpm validate` | Typecheck + test + secret-pattern scan |
 | `pnpm test` / `pnpm typecheck` | Quality gates |
 | `pnpm scaffold -- <slug>` | New domain + apps |
 | `pnpm openapi:import -- <file>` | OpenAPI → stubs |

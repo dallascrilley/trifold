@@ -57,7 +57,7 @@ describe("planProductFiles", () => {
 
 describe("scaffoldProduct", () => {
   it("writes files to disk", () => {
-    const root = mkdtempSync(join(tmpdir(), "cli-mcp-scaffold-"));
+    const root = mkdtempSync(join(tmpdir(), "trifold-scaffold-"));
     temps.push(root);
     const result = scaffoldProduct({ root, slug: "notes" });
     expect(result.written.length).toBeGreaterThan(10);
@@ -66,7 +66,7 @@ describe("scaffoldProduct", () => {
   });
 
   it("dryRun writes nothing", () => {
-    const root = mkdtempSync(join(tmpdir(), "cli-mcp-scaffold-"));
+    const root = mkdtempSync(join(tmpdir(), "trifold-scaffold-"));
     temps.push(root);
     const result = scaffoldProduct({ root, slug: "widgets", dryRun: true });
     expect(result.written).toEqual([]);
@@ -74,7 +74,7 @@ describe("scaffoldProduct", () => {
   });
 
   it("refuses overwrite", () => {
-    const root = mkdtempSync(join(tmpdir(), "cli-mcp-scaffold-"));
+    const root = mkdtempSync(join(tmpdir(), "trifold-scaffold-"));
     temps.push(root);
     scaffoldProduct({ root, slug: "notes" });
     expect(() => scaffoldProduct({ root, slug: "notes" })).toThrow(/overwrite/);

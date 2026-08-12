@@ -113,7 +113,7 @@ function nestCommands(ops: OperationDef[], options: CreateCliOptions): AnyComman
 
   return defineCommand({
     meta: {
-      name: options.name ?? "cli-mcp",
+      name: options.name ?? "trifold",
       version: options.version ?? "0.1.0",
       description: "CLI generated from Operation Registry",
     },

@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "bin": {
-    "cli-mcp": "./src/index.ts"
+    "trifold": "./src/index.ts"
   },
   "scripts": {
     "start": "tsx src/index.ts",
