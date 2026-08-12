@@ -1,4 +1,4 @@
-export { TaskStore } from "./tasks/store.js";
+export { TaskStore, tasksStoreFromEnv, type TaskStoreOptions } from "./tasks/store.js";
 export {
   CreateTaskInput,
   GetTaskInput,
