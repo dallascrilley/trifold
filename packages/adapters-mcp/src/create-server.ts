@@ -52,7 +52,7 @@ export function listMcpTools(registry: Registry): McpToolMeta[] {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-function createProtocolServer(registry: Registry, name = "cli-mcp"): Server {
+function createProtocolServer(registry: Registry, name = "trifold"): Server {
   const server = new Server(
     { name, version: "0.1.0" },
     { capabilities: { tools: {} } },
@@ -119,7 +119,7 @@ function createProtocolServer(registry: Registry, name = "cli-mcp"): Server {
 
 export function createMcpServer(registry: Registry, options?: { name?: string }) {
   // One long-lived Server for stdio; HTTP creates per-request servers (stateless).
-  const stdioServer = createProtocolServer(registry, options?.name ?? "cli-mcp");
+  const stdioServer = createProtocolServer(registry, options?.name ?? "trifold");
 
   return {
     server: stdioServer,
@@ -149,7 +149,7 @@ export function createMcpServer(registry: Registry, options?: { name?: string })
       const app = createMcpExpressApp({ host });
 
       app.post(path, async (req, res) => {
-        const server = createProtocolServer(registry, options?.name ?? "cli-mcp");
+        const server = createProtocolServer(registry, options?.name ?? "trifold");
         try {
           const transport = new StreamableHTTPServerTransport({
             sessionIdGenerator: undefined, // stateless
