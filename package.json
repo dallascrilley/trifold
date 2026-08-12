@@ -13,6 +13,7 @@
     "dev:api": "pnpm --filter @app/api dev",
     "dev:cli": "pnpm --filter @app/cli start",
     "dev:mcp": "pnpm --filter @app/mcp start",
+    "dev:mcp:http": "pnpm --filter @app/mcp start -- --http",
     "snapshot:update": "pnpm --filter @cli-mcp/openapi snapshot && pnpm --filter @cli-mcp/adapters-mcp snapshot",
     "scaffold": "tsx scripts/scaffold-product.ts"
   },

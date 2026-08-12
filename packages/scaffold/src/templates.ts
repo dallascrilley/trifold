@@ -443,12 +443,11 @@ process.exit(code);
       files.push({
         path: `${appDir}/src/index.ts`,
         content: `#!/usr/bin/env node
-import { createMcpServer } from "@cli-mcp/adapters-mcp";
+import { runMcpMain } from "@cli-mcp/adapters-mcp";
 import { create${pascal}Registry } from "${pkgName}";
 
 const { registry } = create${pascal}Registry();
-const mcp = createMcpServer(registry);
-await mcp.start();
+await runMcpMain({ registry, name: "${slug}-mcp" });
 `,
       });
     }

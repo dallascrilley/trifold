@@ -44,14 +44,16 @@ pnpm --filter @app/cli start -- tasks list --json
 pnpm --filter @app/cli start -- tasks complete <id> --json
 ```
 
-### MCP (stdio)
+### MCP (stdio default, or Streamable HTTP)
 
 ```bash
 export APP_API_KEY=dev-key
-pnpm dev:mcp
+pnpm dev:mcp                          # stdio
+pnpm --filter @app/mcp start -- --http   # Streamable HTTP on :8790/mcp
+# MCP_TRANSPORT=http MCP_PORT=8790 pnpm --filter @app/mcp start
 ```
 
-Example client config:
+Example client config (stdio):
 
 ```json
 {
@@ -65,6 +67,8 @@ Example client config:
   }
 }
 ```
+
+HTTP mode: `POST http://127.0.0.1:8790/mcp` (Streamable HTTP). Health: `GET /healthz`.
 
 MCP tools are **curated**. Sample exposes `tasks_list`, `tasks_get`, `tasks_create` — not `tasks_complete` (HTTP/CLI only).
 
