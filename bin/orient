@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Lightweight project orientation (no external harness required).
+set -euo pipefail
+
+ROOT="$(CDPATH='' cd -P -- "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT"
+
+printf 'cli-mcp-projects orientation\n'
+printf 'Repository: %s\n' "$ROOT"
+printf 'Branch: %s\n' "$(git branch --show-current 2>/dev/null || printf unknown)"
+printf 'HEAD: %s\n' "$(git rev-parse --short HEAD 2>/dev/null || printf unknown)"
+
+if [[ -f project.yaml ]]; then
+  printf '\nIdentity (project.yaml):\n'
+  # shellcheck disable=SC2016
+  awk '
+    /^id:|^name:|^status:|^owner:|^remote:|^canonical_path:/ { print "  " $0 }
+  ' project.yaml
+fi
+
+printf '\nGit state:\n'
+git status --short --branch
+
+printf '\nSTATUS.md:\n'
+if [[ -f STATUS.md ]]; then
+  sed -n '1,40p' STATUS.md
+else
+  printf '  (missing)\n'
+fi
+
+printf '\nPackages:\n'
+if [[ -f pnpm-workspace.yaml ]]; then
+  printf '  apps: '
+  # shellcheck disable=SC2012
+  ls -1 apps 2>/dev/null | tr '\n' ' ' || true
+  printf '\n  packages: '
+  ls -1 packages 2>/dev/null | tr '\n' ' ' || true
+  printf '\n'
+fi
+
+printf '\nExecution ledger (Beads):\n'
+if command -v bd >/dev/null 2>&1 && [[ -d .beads ]]; then
+  bd ready 2>/dev/null || printf '  (bd ready failed — is Dolt available?)\n'
+else
+  printf '  bd not available or .beads missing\n'
+fi
+
+printf '\nUseful commands:\n'
+printf '  pnpm install && pnpm test\n'
+printf '  pnpm dev:api | pnpm dev:cli | pnpm dev:mcp\n'
+printf '  bin/work-items ready\n'
+printf '  bd show <id>\n'
