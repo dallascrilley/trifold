@@ -1,7 +1,7 @@
 ---
 date: 2026-08-11
-origin: docs/brainstorms/2026-08-11-cli-mcp-api-boilerplate-requirements.md
-design: docs/plans/2026-08-11-cli-mcp-api-boilerplate-design.md
+origin: docs/internal/brainstorms/2026-08-11-cli-mcp-api-boilerplate-requirements.md
+design: docs/internal/plans/2026-08-11-cli-mcp-api-boilerplate-design.md
 td_epic: null
 status: ready
 ---
@@ -17,9 +17,9 @@ Living document. Update Progress, Surprises, Decision Log, and Outcomes as work 
 After this work, a developer clones the repo, runs `pnpm install`, and can:
 
 1. Define an operation once in `packages/ops` (or `examples/tasks`).
-2. Hit it over HTTP (`pnpm --filter @app/api dev`).
-3. Invoke it from the CLI (`pnpm --filter @app/cli start -- tasks list`).
-4. Expose selected tools over MCP stdio (`pnpm --filter @app/mcp start`).
+2. Hit it over HTTP (`pnpm --filter @trifold-app/api dev`).
+3. Invoke it from the CLI (`pnpm --filter @trifold-app/cli start -- tasks list`).
+4. Expose selected tools over MCP stdio (`pnpm --filter @trifold-app/mcp start`).
 5. Fetch `GET /openapi.json` generated from the registry.
 6. Rely on CI to fail if OpenAPI or MCP tool lists drift without intentional snapshot updates.
 
@@ -52,7 +52,7 @@ After this work, a developer clones the repo, runs `pnpm install`, and can:
 - Decision: **No package publish** in v1; private workspace packages only. Template lives in this repo. Date/Author: 2026-08-11 / plan.
 - Decision: **Zod 3.x** pin initially for converter ecosystem stability (`zod-to-json-schema`); upgrade path noted if Zod 4 is preferred later. Date/Author: 2026-08-11 / plan.
 - Decision: **Vitest** + Node 22+. Date/Author: 2026-08-11 / plan.
-- Decision: **Package names** under `@trifold/*` for libs and `@app/*` for apps. Date/Author: 2026-08-11 / plan.
+- Decision: **Package names** under `@trifold/*` for libs and `@trifold-app/*` for apps. Date/Author: 2026-08-11 / plan.
 
 ## Outcomes & Retrospective
 
@@ -60,7 +60,7 @@ Implemented v1 boilerplate on `feat/cli-mcp-api-boilerplate`. Proof: `pnpm typec
 
 ## Requirements
 
-From `docs/brainstorms/2026-08-11-cli-mcp-api-boilerplate-requirements.md`:
+From `docs/internal/brainstorms/2026-08-11-cli-mcp-api-boilerplate-requirements.md`:
 
 - R1. Define each operation once; no per-surface business logic.
 - R2. Same registry boots HTTP, CLI, MCP without per-op adapter glue beyond surface metadata.
@@ -88,7 +88,7 @@ From `docs/brainstorms/2026-08-11-cli-mcp-api-boilerplate-requirements.md`:
 ## Context and Orientation
 
 - **Empty greenfield** monorepo named `cli-mcp-projects`.
-- Design reference: `docs/plans/2026-08-11-cli-mcp-api-boilerplate-design.md`.
+- Design reference: `docs/internal/plans/2026-08-11-cli-mcp-api-boilerplate-design.md`.
 - Terms:
   - **Operation** — unit of work with id, schemas, handler, surface metadata.
   - **Registry** — map of operation id → definition; adapters iterate it.
@@ -230,7 +230,7 @@ Build bottom-up: monorepo → core → sample ops → HTTP → OpenAPI → CLI �
   - Create task via POST, list via GET, get by id.
   - Validation failure → 400 VALIDATION_ERROR.
   - complete + get reflects done.
-- **Verification:** `pnpm --filter @trifold/adapters-http test` and `pnpm --filter @app/api typecheck`
+- **Verification:** `pnpm --filter @trifold/adapters-http test` and `pnpm --filter @trifold-app/api typecheck`
 
 ### U5. OpenAPI emitter + snapshot
 
@@ -345,7 +345,7 @@ Build bottom-up: monorepo → core → sample ops → HTTP → OpenAPI → CLI �
   - Create: `scripts/smoke.sh` or `packages/ops/src/smoke.test.ts` integration
 - **Approach:**
   - Prefer Vitest integration: create registry → HTTP app.request create/list → CLI run create/list → MCP tool list assert.
-  - Document manual MCP: Claude/Cursor config snippet pointing at `pnpm --filter @app/mcp start`.
+  - Document manual MCP: Claude/Cursor config snippet pointing at `pnpm --filter @trifold-app/mcp start`.
 - **Tests:** single `smoke.test.ts` covering three surfaces in-process.
 - **Verification:** `pnpm test` includes smoke; exit 0.
 
@@ -427,7 +427,7 @@ Observable acceptance (maps to requirements success criteria):
 
 1. **Single registration:** Adding a new op file under `packages/ops` and calling `registry.register` is the only product code needed for it to appear on configured surfaces.
 2. **HTTP:** `curl -s localhost:8787/tasks` and `POST /tasks` with API key work for sample.
-3. **CLI:** `pnpm --filter @app/cli exec node dist/index.js tasks list --format json` returns JSON array.
+3. **CLI:** `pnpm --filter @trifold-app/cli exec node dist/index.js tasks list --format json` returns JSON array.
 4. **MCP:** tool list equals `examples/tasks/mcp-tools.snapshot.json`; `tasks_complete` not listed.
 5. **OpenAPI:** `GET /openapi.json` matches `examples/tasks/openapi.snapshot.json` (or semantic equality).
 6. **Auth:** unauthenticated write fails; read succeeds.

@@ -20,8 +20,8 @@ pnpm dev:api
 # http://localhost:8787/openapi.json
 
 # terminal B (export the same two variables here too)
-pnpm --filter @app/cli start -- tasks create "Ship demo" --json
-pnpm --filter @app/cli start -- tasks list --json
+pnpm --filter @trifold-app/cli start -- tasks create "Ship demo" --json
+pnpm --filter @trifold-app/cli start -- tasks list --json
 ```
 
 `tasks.complete` is available on HTTP/CLI but **not** registered as an MCP tool — intentional curation.
@@ -50,8 +50,8 @@ The repo already includes **notes** as a scaffolded product:
 ```bash
 export APP_API_KEY=dev-key
 export NOTES_STORE_PATH=$PWD/.data/demo-notes.json
-pnpm --filter @app/notes-cli start -- notes create "Hello" --json
-pnpm --filter @app/notes-cli start -- notes list --json
+pnpm --filter @trifold-app/notes-cli start -- notes create "Hello" --json
+pnpm --filter @trifold-app/notes-cli start -- notes list --json
 ```
 
 ## 4. OpenAPI import

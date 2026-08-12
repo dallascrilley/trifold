@@ -81,6 +81,6 @@ origin: session research + design (greenfield cli-mcp-projects)
 
 ## Handoff
 
-- **Plan it** — produce `docs/plans/` implementation units from these R-numbers.
+- **Plan it** — produce `docs/internal/plans/` implementation units from these R-numbers.
 - **Iterate here** — adjust requirements before planning.
 - **Done for now** — design parked; no code yet.

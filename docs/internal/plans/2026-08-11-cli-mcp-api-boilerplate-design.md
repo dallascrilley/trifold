@@ -2,7 +2,7 @@
 date: 2026-08-11
 topic: cli-mcp-api-boilerplate
 status: approved-planning-complete
-requirements: docs/brainstorms/2026-08-11-cli-mcp-api-boilerplate-requirements.md
+requirements: docs/internal/brainstorms/2026-08-11-cli-mcp-api-boilerplate-requirements.md
 ---
 
 # Design: single-schema CLI + MCP + API boilerplate

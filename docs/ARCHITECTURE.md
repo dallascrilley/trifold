@@ -64,6 +64,6 @@ A relative value is anchored on `INIT_CWD` (the directory the command was launch
 
 ## Design docs
 
-- Requirements: `docs/brainstorms/2026-08-11-cli-mcp-api-boilerplate-requirements.md`
-- Design: `docs/plans/2026-08-11-cli-mcp-api-boilerplate-design.md`
-- Implementation plan: `docs/plans/2026-08-11-feat-cli-mcp-api-boilerplate-plan.md`
+- Requirements: `docs/internal/brainstorms/2026-08-11-cli-mcp-api-boilerplate-requirements.md`
+- Design: `docs/internal/plans/2026-08-11-cli-mcp-api-boilerplate-design.md`
+- Implementation plan: `docs/internal/plans/2026-08-11-feat-cli-mcp-api-boilerplate-plan.md`

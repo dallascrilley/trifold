@@ -312,7 +312,7 @@ describe("${slug} domain", () => {
 
   // Apps: api, cli, mcp
   for (const kind of ["api", "cli", "mcp"] as const) {
-    const appName = `@app/${slug}-${kind}`;
+    const appName = `@trifold-app/${slug}-${kind}`;
     const appDir = `apps/${slug}-${kind}`;
 
     if (kind === "api") {
