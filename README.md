@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/logo.svg" width="96" height="96" alt="Trifold logo"/>
+  <img src="docs/brand/primary/trifold-mark.png" width="180" alt="Trifold — closed denim trifold wallet with three cards"/>
 </p>
 
 <h1 align="center">Trifold</h1>
@@ -23,7 +23,8 @@
   <a href="#architecture">Architecture</a> ·
   <a href="#included-samples">Samples</a> ·
   <a href="docs/demo.md">Deep dive</a> ·
-  <a href="#contributing">Contributing</a>
+  <a href="#contributing">Contributing</a> ·
+  <a href="docs/brand/BRAND.md">Brand kit</a>
 </p>
 
 ---
@@ -285,7 +286,7 @@ Packages live under the `@trifold/*` scope. Clone, install, and run the quick st
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md), [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md), and [SECURITY.md](./SECURITY.md).
+See [CONTRIBUTING.md](./CONTRIBUTING.md), [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md), and [SECURITY.md](./SECURITY.md). Brand assets: **[docs/brand/BRAND.md](./docs/brand/BRAND.md)**.
 
 ---
 
