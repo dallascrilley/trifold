@@ -2,7 +2,7 @@ import { existsSync, mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { createContext, invokeOperation } from "@cli-mcp/core";
+import { createContext, invokeOperation } from "@trifold/core";
 import { createTasksRegistry } from "./ops.js";
 import { TaskStore, tasksStoreFromEnv } from "./store.js";
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { createCli } from "@cli-mcp/adapters-cli";
-import { createNotesRegistry, notesStoreFromEnv } from "@cli-mcp/notes";
+import { createCli } from "@trifold/adapters-cli";
+import { createNotesRegistry, notesStoreFromEnv } from "@trifold/notes";
 
 const store = notesStoreFromEnv();
 const { registry } = createNotesRegistry(store);

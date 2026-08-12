@@ -1,5 +1,5 @@
-import { Registry } from "@cli-mcp/core";
-import { createTasksRegistry } from "@cli-mcp/ops";
+import { Registry } from "@trifold/core";
+import { createTasksRegistry } from "@trifold/ops";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import { readFileSync } from "node:fs";

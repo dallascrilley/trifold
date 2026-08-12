@@ -5,7 +5,7 @@ export function planProductFiles(slug: string, title?: string): PlannedFile[] {
   const name = title?.trim() || defaultTitle(slug);
   const pascal = toPascal(slug);
   const resource = toResourcePath(slug); // notes, items
-  const pkgName = `@cli-mcp/${slug}`;
+  const pkgName = `@trifold/${slug}`;
   // operation ids: notes.list style — use first segment or full with underscore
   const opId = slug.replace(/-/g, "_"); // notes, order_items
   const envStoreKey = `${slug.replace(/-/g, "_").toUpperCase()}_STORE_PATH`; // NOTES_STORE_PATH
@@ -35,7 +35,7 @@ export function planProductFiles(slug: string, title?: string): PlannedFile[] {
           build: "tsc -p tsconfig.json --noEmit",
         },
         dependencies: {
-          "@cli-mcp/core": "workspace:*",
+          "@trifold/core": "workspace:*",
           zod: "^3.24.2",
         },
         devDependencies: {
@@ -101,7 +101,7 @@ export const Get${pascal}Input = z.object({
 
   files.push({
     path: `packages/${slug}/src/store.ts`,
-    content: `import { AppError, JsonFileMapStore, storePathFromEnv } from "@cli-mcp/core";
+    content: `import { AppError, JsonFileMapStore, storePathFromEnv } from "@trifold/core";
 import type { ${pascal} } from "./schemas.js";
 import { ${pascal}Schema } from "./schemas.js";
 
@@ -166,7 +166,7 @@ export function ${storeFromEnv}(
 
   files.push({
     path: `packages/${slug}/src/ops.ts`,
-    content: `import { type OperationDef, Registry } from "@cli-mcp/core";
+    content: `import { type OperationDef, Registry } from "@trifold/core";
 import {
   Create${pascal}Input,
   Get${pascal}Input,
@@ -263,7 +263,7 @@ export { create${pascal}Registry, register${pascal} } from "./ops.js";
 
   files.push({
     path: `packages/${slug}/src/${slug}.test.ts`,
-    content: `import { createContext, invokeOperation } from "@cli-mcp/core";
+    content: `import { createContext, invokeOperation } from "@trifold/core";
 import { describe, expect, it } from "vitest";
 import { create${pascal}Registry } from "./ops.js";
 
@@ -332,8 +332,8 @@ describe("${slug} domain", () => {
               test: "vitest run --passWithNoTests",
             },
             dependencies: {
-              "@cli-mcp/adapters-http": "workspace:*",
-              "@cli-mcp/openapi": "workspace:*",
+              "@trifold/adapters-http": "workspace:*",
+              "@trifold/openapi": "workspace:*",
               [pkgName]: "workspace:*",
               "@hono/node-server": "^1.14.1",
               hono: "^4.7.4",
@@ -358,8 +358,8 @@ describe("${slug} domain", () => {
       });
       files.push({
         path: `${appDir}/src/index.ts`,
-        content: `import { createHttpApp } from "@cli-mcp/adapters-http";
-import { emitOpenAPI } from "@cli-mcp/openapi";
+        content: `import { createHttpApp } from "@trifold/adapters-http";
+import { emitOpenAPI } from "@trifold/openapi";
 import { create${pascal}Registry, ${storeFromEnv} } from "${pkgName}";
 import { serve } from "@hono/node-server";
 
@@ -402,7 +402,7 @@ serve({ fetch: app.fetch, port }, (info) => {
               test: "vitest run --passWithNoTests",
             },
             dependencies: {
-              "@cli-mcp/adapters-cli": "workspace:*",
+              "@trifold/adapters-cli": "workspace:*",
               [pkgName]: "workspace:*",
             },
             devDependencies: {
@@ -426,7 +426,7 @@ serve({ fetch: app.fetch, port }, (info) => {
       files.push({
         path: `${appDir}/src/index.ts`,
         content: `#!/usr/bin/env node
-import { createCli } from "@cli-mcp/adapters-cli";
+import { createCli } from "@trifold/adapters-cli";
 import { create${pascal}Registry, ${storeFromEnv} } from "${pkgName}";
 
 const store = ${storeFromEnv}();
@@ -455,7 +455,7 @@ process.exit(code);
               test: "vitest run --passWithNoTests",
             },
             dependencies: {
-              "@cli-mcp/adapters-mcp": "workspace:*",
+              "@trifold/adapters-mcp": "workspace:*",
               [pkgName]: "workspace:*",
             },
             devDependencies: {
@@ -479,7 +479,7 @@ process.exit(code);
       files.push({
         path: `${appDir}/src/index.ts`,
         content: `#!/usr/bin/env node
-import { runMcpMain } from "@cli-mcp/adapters-mcp";
+import { runMcpMain } from "@trifold/adapters-mcp";
 import { create${pascal}Registry, ${storeFromEnv} } from "${pkgName}";
 
 const store = ${storeFromEnv}();

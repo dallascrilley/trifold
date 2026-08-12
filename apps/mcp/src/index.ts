@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { runMcpMain } from "@cli-mcp/adapters-mcp";
-import { createTasksRegistry, tasksStoreFromEnv } from "@cli-mcp/ops";
+import { runMcpMain } from "@trifold/adapters-mcp";
+import { createTasksRegistry, tasksStoreFromEnv } from "@trifold/ops";
 
 const store = tasksStoreFromEnv();
 const { registry } = createTasksRegistry(store);

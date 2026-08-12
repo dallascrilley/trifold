@@ -7,7 +7,7 @@ import {
   isAppError,
   resolveCredentialsFromEnv,
   toAppError,
-} from "@cli-mcp/core";
+} from "@trifold/core";
 import { defineCommand, runMain } from "citty";
 import { z } from "zod";
 import { type OutputFormat, formatOutput } from "./format.js";

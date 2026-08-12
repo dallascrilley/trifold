@@ -1,4 +1,4 @@
-import type { HttpSurface } from "@cli-mcp/core";
+import type { HttpSurface } from "@trifold/core";
 
 export function pathParamNames(path: string): string[] {
   const names: string[] = [];

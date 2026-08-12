@@ -1,6 +1,6 @@
-import { createHttpApp } from "@cli-mcp/adapters-http";
-import { emitOpenAPI } from "@cli-mcp/openapi";
-import { createNotesRegistry, notesStoreFromEnv } from "@cli-mcp/notes";
+import { createHttpApp } from "@trifold/adapters-http";
+import { emitOpenAPI } from "@trifold/openapi";
+import { createNotesRegistry, notesStoreFromEnv } from "@trifold/notes";
 import { serve } from "@hono/node-server";
 
 const store = notesStoreFromEnv();

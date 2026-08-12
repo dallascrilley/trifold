@@ -42,7 +42,7 @@ Curated tools from the tasks sample: `tasks_list`, `tasks_get`, `tasks_create`.
 ```bash
 pnpm scaffold -- inventory --dry-run
 # pnpm scaffold -- inventory
-# pnpm install && pnpm --filter @cli-mcp/inventory test
+# pnpm install && pnpm --filter @trifold/inventory test
 ```
 
 The repo already includes **notes** as a scaffolded product:

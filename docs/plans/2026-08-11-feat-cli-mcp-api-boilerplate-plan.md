@@ -52,7 +52,7 @@ After this work, a developer clones the repo, runs `pnpm install`, and can:
 - Decision: **No package publish** in v1; private workspace packages only. Template lives in this repo. Date/Author: 2026-08-11 / plan.
 - Decision: **Zod 3.x** pin initially for converter ecosystem stability (`zod-to-json-schema`); upgrade path noted if Zod 4 is preferred later. Date/Author: 2026-08-11 / plan.
 - Decision: **Vitest** + Node 22+. Date/Author: 2026-08-11 / plan.
-- Decision: **Package names** under `@cli-mcp/*` for libs and `@app/*` for apps. Date/Author: 2026-08-11 / plan.
+- Decision: **Package names** under `@trifold/*` for libs and `@app/*` for apps. Date/Author: 2026-08-11 / plan.
 
 ## Outcomes & Retrospective
 
@@ -181,7 +181,7 @@ Build bottom-up: monorepo → core → sample ops → HTTP → OpenAPI → CLI �
   - Invalid input throws `AppError` VALIDATION_ERROR.
   - Handler throw of `AppError` propagates; unknown throw becomes INTERNAL status 500.
   - `listForSurface('mcp')` only returns ops with mcp enabled (helper can live here or in MCP adapter — prefer core helper `isMcpEnabled(op)`).
-- **Verification:** `pnpm --filter @cli-mcp/core test`
+- **Verification:** `pnpm --filter @trifold/core test`
 
 ### U3. Tasks sample domain
 
@@ -204,7 +204,7 @@ Build bottom-up: monorepo → core → sample ops → HTTP → OpenAPI → CLI �
 - **Tests:**
   - create → list includes task; get by id; complete flips done.
   - get missing → AppError NOT_FOUND 404.
-- **Verification:** `pnpm --filter @cli-mcp/ops test`
+- **Verification:** `pnpm --filter @trifold/ops test`
 
 ### U4. HTTP adapter + API app
 
@@ -230,7 +230,7 @@ Build bottom-up: monorepo → core → sample ops → HTTP → OpenAPI → CLI �
   - Create task via POST, list via GET, get by id.
   - Validation failure → 400 VALIDATION_ERROR.
   - complete + get reflects done.
-- **Verification:** `pnpm --filter @cli-mcp/adapters-http test` and `pnpm --filter @app/api typecheck`
+- **Verification:** `pnpm --filter @trifold/adapters-http test` and `pnpm --filter @app/api typecheck`
 
 ### U5. OpenAPI emitter + snapshot
 
@@ -251,7 +251,7 @@ Build bottom-up: monorepo → core → sample ops → HTTP → OpenAPI → CLI �
   - Snapshot match for tasks registry.
   - Every op with http surface appears as a path operation.
   - `tasks.complete` present in OpenAPI even though MCP-disabled.
-- **Verification:** `pnpm --filter @cli-mcp/openapi test` and HTTP `GET /openapi.json` returns same document shape.
+- **Verification:** `pnpm --filter @trifold/openapi test` and HTTP `GET /openapi.json` returns same document shape.
 
 ### U6. CLI adapter + CLI app
 
@@ -272,7 +272,7 @@ Build bottom-up: monorepo → core → sample ops → HTTP → OpenAPI → CLI �
   - `tasks get <id>` returns task.
   - Invalid args → exit code 2 or validation 1 with clear stderr.
   - Help text includes command summaries.
-- **Verification:** `pnpm --filter @cli-mcp/adapters-cli test`
+- **Verification:** `pnpm --filter @trifold/adapters-cli test`
 
 ### U7. MCP adapter + MCP app + curation
 
@@ -294,7 +294,7 @@ Build bottom-up: monorepo → core → sample ops → HTTP → OpenAPI → CLI �
   - Tool list matches snapshot.
   - Call `tasks_create` then `tasks_list` via in-process client if feasible; else unit-test register+handler wrappers.
   - Config error when write enabled without agentDescription.
-- **Verification:** `pnpm --filter @cli-mcp/adapters-mcp test`
+- **Verification:** `pnpm --filter @trifold/adapters-mcp test`
 
 ### U8. Auth middleware (all surfaces)
 
@@ -379,7 +379,7 @@ Serial execution recommended (U1→U10). Parallel only after U3: U4+U5 sequentia
 ### Core exports (stable)
 
 ```ts
-// @cli-mcp/core
+// @trifold/core
 export type SideEffect = "read" | "write" | "idempotent-write"
 export type Surface = "http" | "cli" | "mcp"
 export type RequestContext = { surface: Surface; requestId: string; actor?: Actor; auth?: AuthInfo; signal: AbortSignal; logger: Logger }
@@ -394,16 +394,16 @@ export function isMcpEnabled(op: OperationDef<any, any>): boolean
 ### Adapter factories
 
 ```ts
-// @cli-mcp/adapters-http
+// @trifold/adapters-http
 export function createHttpApp(registry: Registry, opts?: { openapi?: OpenAPIObject }): Hono
 
-// @cli-mcp/adapters-cli
+// @trifold/adapters-cli
 export function createCli(registry: Registry): { run(argv: string[]): Promise<number> }
 
-// @cli-mcp/adapters-mcp
+// @trifold/adapters-mcp
 export function createMcpServer(registry: Registry): { start(): Promise<void>; listToolNames(): string[] }
 
-// @cli-mcp/openapi
+// @trifold/openapi
 export function emitOpenAPI(registry: Registry, info: { title: string; version: string }): OpenAPIObject
 ```
 

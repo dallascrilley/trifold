@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { runMcpMain } from "@cli-mcp/adapters-mcp";
-import { createNotesRegistry, notesStoreFromEnv } from "@cli-mcp/notes";
+import { runMcpMain } from "@trifold/adapters-mcp";
+import { createNotesRegistry, notesStoreFromEnv } from "@trifold/notes";
 
 const store = notesStoreFromEnv();
 const { registry } = createNotesRegistry(store);

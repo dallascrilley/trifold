@@ -20,7 +20,7 @@ function usage(): never {
 
 After scaffolding:
   pnpm install
-  pnpm --filter @cli-mcp/<slug> test
+  pnpm --filter @trifold/<slug> test
   pnpm --filter @app/<slug>-api dev
   pnpm --filter @app/<slug>-cli start -- <slug> list --json
 `);
@@ -69,13 +69,13 @@ try {
     for (const f of result.files) console.log(`  ${f.path}`);
   } else {
     console.log(`Scaffolded product '${result.slug}' (${result.title})`);
-    console.log(`  domain: packages/${result.slug}  (@cli-mcp/${result.slug})`);
+    console.log(`  domain: packages/${result.slug}  (@trifold/${result.slug})`);
     console.log(`  apps:   ${result.slug}-api | ${result.slug}-cli | ${result.slug}-mcp`);
     console.log(`  wrote ${result.written.length} files`);
     console.log("");
     console.log("Next:");
     console.log("  pnpm install");
-    console.log(`  pnpm --filter @cli-mcp/${result.slug} test`);
+    console.log(`  pnpm --filter @trifold/${result.slug} test`);
     console.log(`  pnpm --filter @app/${result.slug}-api dev`);
     console.log(`  APP_API_KEY=dev-key pnpm --filter @app/${result.slug}-cli start -- ${result.slug} create "First item" --json`);
   }

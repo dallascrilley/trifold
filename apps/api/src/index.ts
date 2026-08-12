@@ -1,6 +1,6 @@
-import { createHttpApp } from "@cli-mcp/adapters-http";
-import { emitOpenAPI } from "@cli-mcp/openapi";
-import { createTasksRegistry, tasksStoreFromEnv } from "@cli-mcp/ops";
+import { createHttpApp } from "@trifold/adapters-http";
+import { emitOpenAPI } from "@trifold/openapi";
+import { createTasksRegistry, tasksStoreFromEnv } from "@trifold/ops";
 import { serve } from "@hono/node-server";
 
 const store = tasksStoreFromEnv();

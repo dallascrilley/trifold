@@ -6,7 +6,7 @@ import {
   invokeOperation,
   isAppError,
   toAppError,
-} from "@cli-mcp/core";
+} from "@trifold/core";
 import { Hono } from "hono";
 import { bindHttpInput, toHonoPath } from "./bind-input.js";
 

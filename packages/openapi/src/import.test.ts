@@ -1,5 +1,5 @@
-import { AppError, Registry, createContext, invokeOperation } from "@cli-mcp/core";
-import { createTasksRegistry } from "@cli-mcp/ops";
+import { AppError, Registry, createContext, invokeOperation } from "@trifold/core";
+import { createTasksRegistry } from "@trifold/ops";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";

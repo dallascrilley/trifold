@@ -70,7 +70,7 @@ origin: session research + design (greenfield cli-mcp-projects)
 ## Open questions
 
 - **Resolved in plan:** HTTP = Hono (registry-driven routes + separate OpenAPI emitter). CLI = citty. MCP omit = not a tool. Errors = `AppError` JSON. CLI formats = json|table|text. Packages private (no publish v1).
-- **Deferred:** Whether monorepo later publishes `@cli-mcp/*` packages.
+- **Deferred:** Whether monorepo later publishes `@trifold/*` packages.
 
 ## Success criteria
 

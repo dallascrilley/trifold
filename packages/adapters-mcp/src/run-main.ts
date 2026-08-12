@@ -11,7 +11,7 @@
  *   --http | --transport http|stdio
  *   --port <n>  --host <host>  --path <path>
  */
-import type { Registry } from "@cli-mcp/core";
+import type { Registry } from "@trifold/core";
 import { createMcpServer } from "./create-server.js";
 
 export type RunMcpMainOptions = {

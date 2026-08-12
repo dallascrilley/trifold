@@ -1,8 +1,8 @@
-import { createCli } from "@cli-mcp/adapters-cli";
-import { createHttpApp } from "@cli-mcp/adapters-http";
-import { createMcpServer } from "@cli-mcp/adapters-mcp";
-import { emitOpenAPI } from "@cli-mcp/openapi";
-import { createTasksRegistry } from "@cli-mcp/ops";
+import { createCli } from "@trifold/adapters-cli";
+import { createHttpApp } from "@trifold/adapters-http";
+import { createMcpServer } from "@trifold/adapters-mcp";
+import { emitOpenAPI } from "@trifold/openapi";
+import { createTasksRegistry } from "@trifold/ops";
 import { describe, expect, it } from "vitest";
 
 describe("e2e smoke — all three surfaces", () => {

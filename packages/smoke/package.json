@@ -1,5 +1,5 @@
 {
-  "name": "@cli-mcp/smoke",
+  "name": "@trifold/smoke",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,11 +9,11 @@
     "build": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@cli-mcp/adapters-cli": "workspace:*",
-    "@cli-mcp/adapters-http": "workspace:*",
-    "@cli-mcp/adapters-mcp": "workspace:*",
-    "@cli-mcp/openapi": "workspace:*",
-    "@cli-mcp/ops": "workspace:*"
+    "@trifold/adapters-cli": "workspace:*",
+    "@trifold/adapters-http": "workspace:*",
+    "@trifold/adapters-mcp": "workspace:*",
+    "@trifold/openapi": "workspace:*",
+    "@trifold/ops": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.8.2",

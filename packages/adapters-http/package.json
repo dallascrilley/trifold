@@ -1,5 +1,5 @@
 {
-  "name": "@cli-mcp/adapters-http",
+  "name": "@trifold/adapters-http",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -15,11 +15,11 @@
     "build": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@cli-mcp/core": "workspace:*",
+    "@trifold/core": "workspace:*",
     "hono": "^4.7.4"
   },
   "devDependencies": {
-    "@cli-mcp/ops": "workspace:*",
+    "@trifold/ops": "workspace:*",
     "typescript": "^5.8.2",
     "vitest": "^3.0.9"
   }

@@ -62,7 +62,7 @@ describe("scaffoldProduct", () => {
     const result = scaffoldProduct({ root, slug: "notes" });
     expect(result.written.length).toBeGreaterThan(10);
     const pkg = readFileSync(join(root, "packages/notes/package.json"), "utf8");
-    expect(JSON.parse(pkg).name).toBe("@cli-mcp/notes");
+    expect(JSON.parse(pkg).name).toBe("@trifold/notes");
   });
 
   it("dryRun writes nothing", () => {

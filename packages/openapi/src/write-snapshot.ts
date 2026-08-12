@@ -1,4 +1,4 @@
-import { createTasksRegistry } from "@cli-mcp/ops";
+import { createTasksRegistry } from "@trifold/ops";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
