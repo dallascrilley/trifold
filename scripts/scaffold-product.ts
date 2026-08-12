@@ -21,8 +21,8 @@ function usage(): never {
 After scaffolding:
   pnpm install
   pnpm --filter @trifold/<slug> test
-  pnpm --filter @app/<slug>-api dev
-  pnpm --filter @app/<slug>-cli start -- <slug> list --json
+  pnpm --filter @trifold-app/<slug>-api dev
+  pnpm --filter @trifold-app/<slug>-cli start -- <slug> list --json
 `);
   process.exit(2);
 }
@@ -76,8 +76,8 @@ try {
     console.log("Next:");
     console.log("  pnpm install");
     console.log(`  pnpm --filter @trifold/${result.slug} test`);
-    console.log(`  pnpm --filter @app/${result.slug}-api dev`);
-    console.log(`  APP_API_KEY=dev-key pnpm --filter @app/${result.slug}-cli start -- ${result.slug} create "First item" --json`);
+    console.log(`  pnpm --filter @trifold-app/${result.slug}-api dev`);
+    console.log(`  APP_API_KEY=dev-key pnpm --filter @trifold-app/${result.slug}-cli start -- ${result.slug} create "First item" --json`);
   }
 } catch (err) {
   console.error(err instanceof Error ? err.message : err);

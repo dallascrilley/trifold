@@ -65,7 +65,7 @@ is_skip_path() {
   path="${path#./}"
   case "$path" in
     scripts/scan-ai-slop.sh|scripts/ai-slop-patterns.txt|scripts/ai-slop-allowlist.txt) return 0 ;;
-    docs/maintainer/public-repo-release-sop.md) return 0 ;;
+    docs/internal/maintainer/public-repo-release-sop.md) return 0 ;;
     .beads/*|.beads) return 0 ;;
     node_modules/*|pnpm-lock.yaml) return 0 ;;
     docs/assets/*) return 0 ;;

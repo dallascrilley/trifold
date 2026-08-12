@@ -1,5 +1,5 @@
 {
-  "name": "@app/notes-api",
+  "name": "@trifold-app/notes-api",
   "version": "0.1.0",
   "private": true,
   "type": "module",

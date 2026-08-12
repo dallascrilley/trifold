@@ -26,6 +26,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@hono/node-server':
+        specifier: ^1.14.1
+        version: 1.19.17(hono@4.13.1)
       '@trifold/adapters-http':
         specifier: workspace:*
         version: link:../../packages/adapters-http
@@ -35,9 +38,6 @@ importers:
       '@trifold/ops':
         specifier: workspace:*
         version: link:../../packages/ops
-      '@hono/node-server':
-        specifier: ^1.14.1
-        version: 1.19.17(hono@4.13.1)
       hono:
         specifier: ^4.7.4
         version: 4.13.1
@@ -92,6 +92,9 @@ importers:
 
   apps/notes-api:
     dependencies:
+      '@hono/node-server':
+        specifier: ^1.14.1
+        version: 1.19.17(hono@4.13.1)
       '@trifold/adapters-http':
         specifier: workspace:*
         version: link:../../packages/adapters-http
@@ -101,9 +104,6 @@ importers:
       '@trifold/openapi':
         specifier: workspace:*
         version: link:../../packages/openapi
-      '@hono/node-server':
-        specifier: ^1.14.1
-        version: 1.19.17(hono@4.13.1)
       hono:
         specifier: ^4.7.4
         version: 4.13.1
@@ -199,15 +199,15 @@ importers:
 
   packages/adapters-mcp:
     dependencies:
+      '@modelcontextprotocol/sdk':
+        specifier: ^1.12.1
+        version: 1.30.0(zod@3.25.76)
       '@trifold/core':
         specifier: workspace:*
         version: link:../core
       '@trifold/openapi':
         specifier: workspace:*
         version: link:../openapi
-      '@modelcontextprotocol/sdk':
-        specifier: ^1.12.1
-        version: 1.30.0(zod@3.25.76)
       express:
         specifier: ^5.1.0
         version: 5.2.1

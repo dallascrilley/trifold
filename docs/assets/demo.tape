@@ -24,11 +24,11 @@ Type "export APP_API_KEY=dev-key TASKS_STORE_PATH=.data/demo-tasks.json"
 Enter
 Sleep 200ms
 
-Type "pnpm --filter @app/cli start -- tasks create 'Portfolio demo' --json"
+Type "pnpm --filter @trifold-app/cli start -- tasks create 'Portfolio demo' --json"
 Enter
 Sleep 2.5s
 
-Type "pnpm --filter @app/cli start -- tasks list --json"
+Type "pnpm --filter @trifold-app/cli start -- tasks list --json"
 Enter
 Sleep 2s
 

@@ -1,5 +1,5 @@
 {
-  "name": "@app/mcp",
+  "name": "@trifold-app/mcp",
   "version": "0.1.0",
   "private": true,
   "type": "module",

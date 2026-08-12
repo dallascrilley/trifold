@@ -109,8 +109,8 @@ pnpm dev:api
 # → http://localhost:8787/openapi.json
 
 # terminal B — same two exports, then:
-pnpm --filter @app/cli start -- tasks create "Ship demo" --json
-pnpm --filter @app/cli start -- tasks list --json
+pnpm --filter @trifold-app/cli start -- tasks create "Ship demo" --json
+pnpm --filter @trifold-app/cli start -- tasks list --json
 ```
 
 `pnpm dev:api` runs in the foreground, so run the CLI commands in a second
@@ -131,7 +131,7 @@ pnpm dev:mcp:http            # Streamable HTTP → :8790/mcp
   "mcpServers": {
     "tasks": {
       "command": "pnpm",
-      "args": ["--filter", "@app/mcp", "start"],
+      "args": ["--filter", "@trifold-app/mcp", "start"],
       "cwd": "/absolute/path/to/trifold",
       "env": { "APP_API_KEY": "dev-key" }
     }
@@ -152,8 +152,8 @@ pnpm dev:mcp:http            # Streamable HTTP → :8790/mcp
 # notes product
 export APP_API_KEY=dev-key
 export NOTES_STORE_PATH=$PWD/.data/notes.json
-pnpm --filter @app/notes-cli start -- notes create "Hello" --json
-pnpm --filter @app/notes-cli start -- notes list --json
+pnpm --filter @trifold-app/notes-cli start -- notes create "Hello" --json
+pnpm --filter @trifold-app/notes-cli start -- notes list --json
 ```
 
 ---
@@ -197,7 +197,7 @@ pnpm install
 pnpm --filter @trifold/inventory test
 export APP_API_KEY=dev-key
 export INVENTORY_STORE_PATH=$PWD/.data/inventory.json
-pnpm --filter @app/inventory-cli start -- inventory create "Widget" --json
+pnpm --filter @trifold-app/inventory-cli start -- inventory create "Widget" --json
 ```
 
 ---
