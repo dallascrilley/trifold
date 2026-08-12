@@ -5,7 +5,8 @@ import {
   type Registry,
   type SideEffect,
 } from "@cli-mcp/core";
-import { z } from "zod";
+import { z, type ZodTypeAny } from "zod";
+import { jsonSchemaToZod } from "./json-schema-zod.js";
 import { pathParamNames } from "./paths.js";
 
 /** Loose OpenAPI 3.x document (only fields we read). */
@@ -94,8 +95,55 @@ function authFromSecurity(
   return fallback;
 }
 
-function inputSchemaFor(path: string, method: HttpMethod, op: Record<string, unknown>) {
-  const shape: Record<string, z.ZodTypeAny> = {};
+function schemaFromParameter(p: Record<string, unknown>, components?: Record<string, unknown>): ZodTypeAny {
+  const schema = (p.schema as unknown) ?? { type: "string" };
+  let field = jsonSchemaToZod(schema, { components });
+  if (!p.required) field = field.optional();
+  return field;
+}
+
+function requestBodySchema(
+  op: Record<string, unknown>,
+  components?: Record<string, unknown>,
+): ZodTypeAny | undefined {
+  const body = op.requestBody as Record<string, unknown> | undefined;
+  if (!body || typeof body !== "object") return undefined;
+  const content = body.content as Record<string, { schema?: unknown }> | undefined;
+  const json =
+    content?.["application/json"] ??
+    content?.["application/*+json"] ??
+    Object.values(content ?? {})[0];
+  if (!json?.schema) return undefined;
+  return jsonSchemaToZod(json.schema, { components });
+}
+
+function responseBodySchema(
+  op: Record<string, unknown>,
+  components?: Record<string, unknown>,
+): ZodTypeAny {
+  const responses = op.responses as Record<string, unknown> | undefined;
+  if (!responses) return z.unknown();
+  for (const code of Object.keys(responses).sort()) {
+    const n = Number(code);
+    if (!(n >= 200 && n < 300) && code !== "default") continue;
+    const resp = responses[code] as Record<string, unknown>;
+    const content = resp?.content as Record<string, { schema?: unknown }> | undefined;
+    const json =
+      content?.["application/json"] ??
+      content?.["application/*+json"] ??
+      Object.values(content ?? {})[0];
+    if (json?.schema) return jsonSchemaToZod(json.schema, { components });
+  }
+  return z.unknown();
+}
+
+function inputSchemaFor(
+  path: string,
+  method: HttpMethod,
+  op: Record<string, unknown>,
+  components?: Record<string, unknown>,
+): ZodTypeAny {
+  const shape: Record<string, ZodTypeAny> = {};
   for (const name of pathParamNames(path)) {
     shape[name] = z.string().min(1);
   }
@@ -104,22 +152,41 @@ function inputSchemaFor(path: string, method: HttpMethod, op: Record<string, unk
   if (Array.isArray(parameters)) {
     for (const p of parameters) {
       const name = String(p.name ?? "");
-      if (!name || p.in === "path") continue; // path already covered
+      if (!name) continue;
+      if (p.in === "path") {
+        // Prefer OpenAPI schema for path params when present
+        shape[name] = p.schema
+          ? jsonSchemaToZod(p.schema, { components })
+          : z.string().min(1);
+        continue;
+      }
       if (p.in === "query" || p.in === "header") {
-        shape[name] = p.required ? z.string() : z.string().optional();
+        shape[name] = schemaFromParameter(p, components);
       }
     }
   }
 
-  // Body: accept arbitrary object for write methods (handlers refine later)
+  const bodyZod = requestBodySchema(op, components);
+  if (bodyZod) {
+    // Prefer merging object bodies with path/query fields
+    if (bodyZod instanceof z.ZodObject) {
+      const bodyShape = bodyZod.shape as Record<string, ZodTypeAny>;
+      return z.object({ ...shape, ...bodyShape });
+    }
+    if (Object.keys(shape).length === 0) return bodyZod;
+    // Non-object body + path params: wrap
+    return z.object({ ...shape, body: bodyZod });
+  }
+
   if (method !== "get" && method !== "delete") {
-    // Merge-friendly: remaining keys allowed
-    return z.object(shape).passthrough();
+    return Object.keys(shape).length
+      ? z.object(shape).passthrough()
+      : z.object({}).passthrough();
   }
   if (Object.keys(shape).length === 0) {
     return z.object({}).passthrough();
   }
-  return z.object(shape).passthrough();
+  return z.object(shape);
 }
 
 function stubHandler(id: string) {
@@ -171,12 +238,13 @@ export function openApiToOperations(
       const auth = authFromSecurity(op, doc, defaultAuth);
       const status = successStatus(op);
 
+      const components = doc.components?.schemas;
       const def: OperationDef = {
         id,
         summary,
         ...(description ? { description } : {}),
-        input: inputSchemaFor(path, method, op),
-        output: z.unknown(),
+        input: inputSchemaFor(path, method, op, components),
+        output: responseBodySchema(op, components),
         meta: {
           sideEffect,
           auth,
