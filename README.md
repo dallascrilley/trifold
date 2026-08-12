@@ -21,13 +21,15 @@ bin/work-items ready       # Beads backlog
 pnpm scaffold -- notes     # new product domain + api/cli/mcp apps
 ```
 
-### Shared task store (API ↔ CLI)
+### Shared file stores (API ↔ CLI ↔ MCP)
 
-By default each process uses **in-memory** storage. To share tasks across
-processes, point both at the same JSON file:
+By default each process uses **in-memory** storage. To share data across
+processes, set a product store path:
 
 ```bash
-export TASKS_STORE_PATH=.data/tasks.json
+export TASKS_STORE_PATH=.data/tasks.json   # tasks sample
+export NOTES_STORE_PATH=.data/notes.json   # notes product
+# scaffolded products: export <SLUG>_STORE_PATH=.data/<slug>.json
 export APP_API_KEY=dev-key
 pnpm dev:api
 # other terminal:
