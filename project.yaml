@@ -1,13 +1,13 @@
 schema_version: 1
-id: cli-mcp-projects
-name: CLI MCP Projects
+id: trifold
+name: Trifold
 domain: products
 status: active
 owner: dallascrilley
 created: 2026-08-11
 # Portable identity — no machine-local absolute paths in the public tree.
 canonical_path: .
-remote: https://github.com/dallascrilley/cli-mcp-projects.git
+remote: https://github.com/dallascrilley/trifold.git
 data_classification: internal
 backup: github
 linear:

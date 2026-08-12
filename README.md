@@ -1,16 +1,16 @@
 <p align="center">
-  <img src="docs/assets/logo.svg" width="96" height="96" alt="cli-mcp-projects logo"/>
+  <img src="docs/assets/logo.svg" width="96" height="96" alt="Trifold logo"/>
 </p>
 
-<h1 align="center">cli-mcp-projects</h1>
+<h1 align="center">Trifold</h1>
 
 <p align="center">
-  <strong>Define once. Ship three surfaces.</strong><br/>
+  <strong>Define an operation once, ship it as an HTTP API, a CLI, and an MCP server.</strong><br/>
   <em>TypeScript Operation Registry → HTTP API · CLI · MCP</em>
 </p>
 
 <p align="center">
-  <a href="https://github.com/dallascrilley/cli-mcp-projects/actions/workflows/ci.yml"><img src="https://github.com/dallascrilley/cli-mcp-projects/actions/workflows/ci.yml/badge.svg" alt="CI"/></a>
+  <a href="https://github.com/dallascrilley/trifold/actions/workflows/ci.yml"><img src="https://github.com/dallascrilley/trifold/actions/workflows/ci.yml/badge.svg" alt="CI"/></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT"/></a>
   <a href="./package.json"><img src="https://img.shields.io/badge/node-%3E%3D22-brightgreen" alt="Node 22+"/></a>
   <a href="https://modelcontextprotocol.io"><img src="https://img.shields.io/badge/MCP-ready-7C3AED" alt="MCP"/></a>
@@ -30,9 +30,9 @@
 
 ### 30-second story
 
-You keep writing the **same capability** three times — once for the API, once for a CLI, once for an agent MCP server — and they drift. **cli-mcp-projects** makes the capability (an *operation*) the source of truth: Zod I/O, handler, auth, and side-effect metadata live together. Thin adapters expose HTTP, CLI, and curated MCP tools. OpenAPI is emitted from the same registry (and can be imported back as stubs).
+I kept writing the **same capability** three times, once for the API, once for a CLI, once for an agent MCP server, and the three copies drifted. **Trifold** makes the capability (an *operation*) the source of truth: Zod I/O, handler, auth, and side-effect metadata live in one definition. Thin adapters expose HTTP, CLI, and curated MCP tools. OpenAPI is emitted from the same registry, and can be imported back as stubs.
 
-**Proof:** clone → `pnpm install && pnpm test` → create a task over CLI or `curl` → list MCP tools that are deliberately *not* a 1:1 REST dump.
+**Proof:** clone the repo, run `pnpm install && pnpm test`, create a task over CLI or `curl`, then list the MCP tools and see that they are deliberately not a 1:1 REST dump.
 
 ---
 
@@ -91,8 +91,8 @@ Regenerate the GIF (optional): `vhs docs/assets/demo.tape` from the repo root.
 **Requirements:** Node.js 22+, [pnpm](https://pnpm.io) 11+
 
 ```bash
-git clone https://github.com/dallascrilley/cli-mcp-projects.git
-cd cli-mcp-projects
+git clone https://github.com/dallascrilley/trifold.git
+cd trifold
 pnpm install
 pnpm validate   # typecheck + test + secret-pattern scan
 ```
@@ -125,7 +125,7 @@ pnpm dev:mcp:http            # Streamable HTTP → :8790/mcp
     "tasks": {
       "command": "pnpm",
       "args": ["--filter", "@app/mcp", "start"],
-      "cwd": "/absolute/path/to/cli-mcp-projects",
+      "cwd": "/absolute/path/to/trifold",
       "env": { "APP_API_KEY": "dev-key" }
     }
   }
