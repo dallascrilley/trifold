@@ -60,6 +60,8 @@ MCP is **not** “every HTTP route.” Only operations with `surfaces.mcp.enable
 
 Stores default to **in-memory**. Set `TASKS_STORE_PATH` / `NOTES_STORE_PATH` / `<SLUG>_STORE_PATH` to a JSON file for multi-process demos. Implementation: `JsonFileMapStore` (atomic write, reload-on-op, last-writer-wins).
 
+A relative value is anchored on `INIT_CWD` (the directory the command was launched from, set by pnpm/npm) rather than `process.cwd()` — `pnpm --filter <pkg> …` runs each package with its own cwd, so anchoring on `process.cwd()` would give the API and the CLI separate files from one env var. See `resolveStorePath` in `packages/core/src/json-file-store.ts`.
+
 ## Design docs
 
 - Requirements: `docs/brainstorms/2026-08-11-cli-mcp-api-boilerplate-requirements.md`

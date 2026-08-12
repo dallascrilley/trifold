@@ -94,22 +94,29 @@ Regenerate the GIF (optional): `vhs docs/assets/demo.tape` from the repo root.
 git clone https://github.com/dallascrilley/trifold.git
 cd trifold
 pnpm install
-pnpm validate   # typecheck + test + secret-pattern scan
+pnpm validate   # typecheck + test + secret-pattern scan + AI-slop scan
 ```
 
 ### Tasks sample (API + CLI)
 
 ```bash
-export APP_API_KEY=dev-key                 # demo only
-export TASKS_STORE_PATH=.data/tasks.json   # share across processes
+export APP_API_KEY=dev-key                       # demo only
+export TASKS_STORE_PATH=$PWD/.data/tasks.json    # one file shared by API + CLI
 
+# terminal A (blocks)
 pnpm dev:api
 # → http://localhost:8787/healthz
 # → http://localhost:8787/openapi.json
 
+# terminal B — same two exports, then:
 pnpm --filter @app/cli start -- tasks create "Ship demo" --json
 pnpm --filter @app/cli start -- tasks list --json
 ```
+
+`pnpm dev:api` runs in the foreground, so run the CLI commands in a second
+terminal. A relative `TASKS_STORE_PATH` is resolved against the directory you
+launched the command from (`INIT_CWD`), so the API and the CLI still share one
+file under `pnpm --filter`; `$PWD` makes that explicit.
 
 ### MCP (agents)
 
@@ -144,7 +151,7 @@ pnpm dev:mcp:http            # Streamable HTTP → :8790/mcp
 ```bash
 # notes product
 export APP_API_KEY=dev-key
-export NOTES_STORE_PATH=.data/notes.json
+export NOTES_STORE_PATH=$PWD/.data/notes.json
 pnpm --filter @app/notes-cli start -- notes create "Hello" --json
 pnpm --filter @app/notes-cli start -- notes list --json
 ```
@@ -189,7 +196,7 @@ pnpm scaffold -- inventory --title "Inventory"
 pnpm install
 pnpm --filter @cli-mcp/inventory test
 export APP_API_KEY=dev-key
-export INVENTORY_STORE_PATH=.data/inventory.json
+export INVENTORY_STORE_PATH=$PWD/.data/inventory.json
 pnpm --filter @app/inventory-cli start -- inventory create "Widget" --json
 ```
 
@@ -199,8 +206,11 @@ pnpm --filter @app/inventory-cli start -- inventory create "Widget" --json
 
 ```bash
 pnpm openapi:import -- examples/tasks/openapi.snapshot.json
-pnpm openapi:import -- ./openapi.json --skeleton > handlers.stub.ts
+pnpm openapi:import -- examples/tasks/openapi.snapshot.json --skeleton > handlers.stub.ts
 ```
+
+Swap `examples/tasks/openapi.snapshot.json` for your own `<openapi-file>`. A
+missing file exits `1` with a one-line error. `handlers.stub.ts` is gitignored.
 
 Stubs get HTTP/CLI surfaces and Zod inputs from JSON Schema. Handlers start as `NOT_IMPLEMENTED`. MCP stays off unless `--mcp`.
 
@@ -242,8 +252,12 @@ Deep dive: **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)** · walkthrough: **
 | HTTP | `X-API-Key` or `Authorization: Bearer` |
 | CLI / MCP | `APP_API_KEY` / `APP_TOKEN` / `APP_API_KEYS` |
 
-- Demo default (non-production): `dev-key` when unset.  
-- **`NODE_ENV=production`:** fail closed — no invented credentials.  
+- Every authenticated call must **present** a key — the HTTP header above, or
+  `APP_API_KEY` / `APP_TOKEN` for CLI and MCP. Presenting none is `401 UNAUTHORIZED`.
+- Outside production, when no `APP_API_KEY` / `APP_API_KEYS` is configured, the
+  literal `dev-key` is *accepted* so the samples work — it is an accepted value,
+  not an applied default.
+- **`NODE_ENV=production`:** fail closed — no accepted key unless you configure one.
 - See [`.env.example`](./.env.example).
 
 ---
@@ -252,7 +266,7 @@ Deep dive: **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)** · walkthrough: **
 
 | Command | Purpose |
 |---|---|
-| `pnpm validate` | Typecheck + test + secret-pattern scan |
+| `pnpm validate` | Typecheck + test + secret-pattern scan + AI-slop scan (`scripts/scan-ai-slop.sh`) |
 | `pnpm test` / `pnpm typecheck` | Quality gates |
 | `pnpm scaffold -- <slug>` | New domain + apps |
 | `pnpm openapi:import -- <file>` | OpenAPI → stubs |

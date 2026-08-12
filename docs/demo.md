@@ -6,20 +6,20 @@ A short tour of the included samples. For the full story, start at the [README](
 
 ```bash
 pnpm install
-pnpm validate   # typecheck + test + secret scan
+pnpm validate   # typecheck + test + secret scan + AI-slop scan
 ```
 
 ## 1. Tasks sample — API + CLI (shared store)
 
 ```bash
 export APP_API_KEY=dev-key
-export TASKS_STORE_PATH=.data/demo-tasks.json
+export TASKS_STORE_PATH=$PWD/.data/demo-tasks.json
 
 # terminal A
 pnpm dev:api
 # http://localhost:8787/openapi.json
 
-# terminal B
+# terminal B (export the same two variables here too)
 pnpm --filter @app/cli start -- tasks create "Ship demo" --json
 pnpm --filter @app/cli start -- tasks list --json
 ```
@@ -49,7 +49,7 @@ The repo already includes **notes** as a scaffolded product:
 
 ```bash
 export APP_API_KEY=dev-key
-export NOTES_STORE_PATH=.data/demo-notes.json
+export NOTES_STORE_PATH=$PWD/.data/demo-notes.json
 pnpm --filter @app/notes-cli start -- notes create "Hello" --json
 pnpm --filter @app/notes-cli start -- notes list --json
 ```

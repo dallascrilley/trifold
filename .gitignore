@@ -10,6 +10,9 @@ coverage/
 .turbo/
 .data/
 
+# Redirect target documented for `pnpm openapi:import -- <file> --skeleton`
+handlers.stub.ts
+
 # Beads / Dolt files (added by bd init)
 .dolt/
 *.db
