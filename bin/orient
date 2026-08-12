@@ -5,7 +5,7 @@ set -euo pipefail
 ROOT="$(CDPATH='' cd -P -- "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-printf 'cli-mcp-projects orientation\n'
+printf 'trifold orientation\n'
 printf 'Repository: %s\n' "$ROOT"
 printf 'Branch: %s\n' "$(git branch --show-current 2>/dev/null || printf unknown)"
 printf 'HEAD: %s\n' "$(git rev-parse --short HEAD 2>/dev/null || printf unknown)"

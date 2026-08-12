@@ -10,8 +10,8 @@ Thanks for your interest in improving this project. This guide keeps contributio
 - [pnpm](https://pnpm.io) **11+** (see `packageManager` in root `package.json`)
 
 ```bash
-git clone https://github.com/dallascrilley/cli-mcp-projects.git
-cd cli-mcp-projects
+git clone https://github.com/dallascrilley/trifold.git
+cd trifold
 pnpm install
 pnpm typecheck
 pnpm test

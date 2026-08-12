@@ -3,7 +3,7 @@
 - **Status:** active (private; public-ready prep complete)
 - **Owner:** dallascrilley
 - **Last verified:** 2026-08-11
-- **Repository:** https://github.com/dallascrilley/cli-mcp-projects (**private** until explicit approval to go public)
+- **Repository:** https://github.com/dallascrilley/trifold (**private** until explicit approval to go public)
 - **Default branch:** `main`
 - **Beads:** `bin/work-items ready` (optional execution ledger)
 - **Next focus:** external feedback when public is approved; optional product domains

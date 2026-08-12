@@ -1,8 +1,8 @@
 {
-  "name": "cli-mcp-projects",
+  "name": "trifold",
   "private": true,
   "version": "0.1.0",
-  "description": "Single-schema TypeScript boilerplate: Operation Registry → HTTP API, CLI, and MCP server",
+  "description": "Define an operation once, ship it as an HTTP API, a CLI, and an MCP server",
   "type": "module",
   "packageManager": "pnpm@11.20.0",
   "engines": {
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dallascrilley/cli-mcp-projects.git"
+    "url": "git+https://github.com/dallascrilley/trifold.git"
   },
   "bugs": {
-    "url": "https://github.com/dallascrilley/cli-mcp-projects/issues"
+    "url": "https://github.com/dallascrilley/trifold/issues"
   },
-  "homepage": "https://github.com/dallascrilley/cli-mcp-projects#readme",
+  "homepage": "https://github.com/dallascrilley/trifold#readme",
   "license": "MIT",
   "author": "Dallas Crilley",
   "keywords": [

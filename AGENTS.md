@@ -1,4 +1,4 @@
-# Agent notes — cli-mcp-projects
+# Agent notes — Trifold
 
 ## Orientation
 

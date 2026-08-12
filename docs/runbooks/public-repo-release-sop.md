@@ -282,5 +282,6 @@ When an agent runs this SOP:
 
 ## Revision history
 
-- 2026-08-11: Initial SOP (first applied to `cli-mcp-projects`).
+- 2026-08-11: Initial SOP (first applied to this repository, then named `cli-mcp-projects`).
 - 2026-08-11: Add AI-slop scan + commit-history presentability phases.
+- 2026-08-11: Repository renamed to `trifold`; self-references updated.
