@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="docs/assets/logo.svg" width="96" height="96" alt="Trifold logo"/>
+  <img src="docs/brand/variants/trifold-lockup.png" width="420" alt="Trifold — One op. Three surfaces."/>
 </p>
-
-<h1 align="center">Trifold</h1>
 
 <p align="center">
   <strong>Define an operation once, ship it as an HTTP API, a CLI, and an MCP server.</strong><br/>
@@ -23,7 +21,8 @@
   <a href="#architecture">Architecture</a> ·
   <a href="#included-samples">Samples</a> ·
   <a href="docs/demo.md">Deep dive</a> ·
-  <a href="#contributing">Contributing</a>
+  <a href="#contributing">Contributing</a> ·
+  <a href="docs/brand/BRAND.md">Brand kit</a>
 </p>
 
 ---
@@ -285,7 +284,7 @@ Packages live under the `@trifold/*` scope. Clone, install, and run the quick st
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md), [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md), and [SECURITY.md](./SECURITY.md).
+See [CONTRIBUTING.md](./CONTRIBUTING.md), [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md), and [SECURITY.md](./SECURITY.md). Brand assets: **[docs/brand/BRAND.md](./docs/brand/BRAND.md)**.
 
 ---
 
