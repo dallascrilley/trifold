@@ -4,12 +4,12 @@
 - Owner: dallascrilley
 - Last verified: 2026-08-11
 - Current Linear outcome: none
-- Current Beads claim: none (agent-ops closed: `cli-mcp-8sa.1`, `.6`, `.7`)
+- Current Beads claim: `cli-mcp-8sa.2` scaffolder (in progress on `feat/scaffold-product`)
 - Remote: https://github.com/dallascrilley/cli-mcp-projects (private)
-- Base branch: `main` (PR #1 merged — Operation Registry boilerplate)
-- Next safe action: `bin/work-items ready` → prefer `cli-mcp-8sa.2` (scaffolder) or `cli-mcp-8sa.3` (MCP HTTP)
+- Base branch: `main` (PR #1 boilerplate + PR #2 agent-ops)
+- Next safe action: land scaffolder PR; then `cli-mcp-8sa.3` (MCP HTTP) or pick from `bin/work-items ready`
 - Blockers: none recorded
-- Working tree: land `chore/agent-ops-and-backlog` then return to main
+- Working tree: `feat/scaffold-product`
 - Backup: GitHub origin; Beads Dolt remote on origin; `.beads/issues.jsonl` passive export
 
 ## Product pointer

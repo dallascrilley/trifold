@@ -87,6 +87,72 @@ importers:
         specifier: ^3.0.9
         version: 3.2.7(@types/node@22.20.1)(tsx@4.23.12)
 
+  apps/notes-api:
+    dependencies:
+      '@cli-mcp/adapters-http':
+        specifier: workspace:*
+        version: link:../../packages/adapters-http
+      '@cli-mcp/notes':
+        specifier: workspace:*
+        version: link:../../packages/notes
+      '@cli-mcp/openapi':
+        specifier: workspace:*
+        version: link:../../packages/openapi
+      '@hono/node-server':
+        specifier: ^1.14.1
+        version: 1.19.17(hono@4.13.1)
+      hono:
+        specifier: ^4.7.4
+        version: 4.13.1
+    devDependencies:
+      tsx:
+        specifier: ^4.19.3
+        version: 4.23.12
+      typescript:
+        specifier: ^5.8.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.9
+        version: 3.2.7(@types/node@22.20.1)(tsx@4.23.12)
+
+  apps/notes-cli:
+    dependencies:
+      '@cli-mcp/adapters-cli':
+        specifier: workspace:*
+        version: link:../../packages/adapters-cli
+      '@cli-mcp/notes':
+        specifier: workspace:*
+        version: link:../../packages/notes
+    devDependencies:
+      tsx:
+        specifier: ^4.19.3
+        version: 4.23.12
+      typescript:
+        specifier: ^5.8.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.9
+        version: 3.2.7(@types/node@22.20.1)(tsx@4.23.12)
+
+  apps/notes-mcp:
+    dependencies:
+      '@cli-mcp/adapters-mcp':
+        specifier: workspace:*
+        version: link:../../packages/adapters-mcp
+      '@cli-mcp/notes':
+        specifier: workspace:*
+        version: link:../../packages/notes
+    devDependencies:
+      tsx:
+        specifier: ^4.19.3
+        version: 4.23.12
+      typescript:
+        specifier: ^5.8.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.9
+        version: 3.2.7(@types/node@22.20.1)(tsx@4.23.12)
+
   packages/adapters-cli:
     dependencies:
       '@cli-mcp/core':
@@ -169,6 +235,22 @@ importers:
         specifier: ^3.0.9
         version: 3.2.7(@types/node@22.20.1)(tsx@4.23.12)
 
+  packages/notes:
+    dependencies:
+      '@cli-mcp/core':
+        specifier: workspace:*
+        version: link:../core
+      zod:
+        specifier: ^3.24.2
+        version: 3.25.76
+    devDependencies:
+      typescript:
+        specifier: ^5.8.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.9
+        version: 3.2.7(@types/node@22.20.1)(tsx@4.23.12)
+
   packages/openapi:
     dependencies:
       '@cli-mcp/core':
@@ -202,6 +284,15 @@ importers:
       zod:
         specifier: ^3.24.2
         version: 3.25.76
+    devDependencies:
+      typescript:
+        specifier: ^5.8.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.9
+        version: 3.2.7(@types/node@22.20.1)(tsx@4.23.12)
+
+  packages/scaffold:
     devDependencies:
       typescript:
         specifier: ^5.8.2
