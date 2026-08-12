@@ -35,7 +35,7 @@
     <rect x="320" y="100" width="320" height="110" rx="16" fill="#15233A" stroke="#5B8CFF" stroke-width="2"/>
   </g>
   <text x="340" y="140" class="label">Operation Registry</text>
-  <text x="340" y="164" class="mini">@cli-mcp/core · invoke · auth · meta</text>
+  <text x="340" y="164" class="mini">@trifold/core · invoke · auth · meta</text>
   <text x="340" y="186" class="mono">register({ id, input, output, surfaces, handler })</text>
 
   <!-- OpenAPI -->
@@ -44,7 +44,7 @@
   </g>
   <text x="740" y="145" class="label">OpenAPI 3.1</text>
   <text x="740" y="168" class="mini">emit · import · JSON Schema→Zod</text>
-  <text x="740" y="188" class="mono">@cli-mcp/openapi</text>
+  <text x="740" y="188" class="mono">@trifold/openapi</text>
 
   <!-- arrows to registry -->
   <path d="M240 155 H320" stroke="#5B8CFF" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>

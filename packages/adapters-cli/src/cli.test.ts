@@ -1,4 +1,4 @@
-import { createTasksRegistry } from "@cli-mcp/ops";
+import { createTasksRegistry } from "@trifold/ops";
 import { describe, expect, it } from "vitest";
 import { createCli } from "./create-cli.js";
 import { formatOutput } from "./format.js";

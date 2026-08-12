@@ -11,9 +11,9 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@cli-mcp/adapters-http": "workspace:*",
-    "@cli-mcp/openapi": "workspace:*",
-    "@cli-mcp/notes": "workspace:*",
+    "@trifold/adapters-http": "workspace:*",
+    "@trifold/openapi": "workspace:*",
+    "@trifold/notes": "workspace:*",
     "@hono/node-server": "^1.14.1",
     "hono": "^4.7.4"
   },

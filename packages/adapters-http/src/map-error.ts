@@ -1,4 +1,4 @@
-import { isAppError, toAppError } from "@cli-mcp/core";
+import { isAppError, toAppError } from "@trifold/core";
 import type { Context } from "hono";
 
 export function httpErrorResponse(c: Context, err: unknown) {

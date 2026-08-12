@@ -8,8 +8,8 @@ import {
   mcpToolName,
   resolveCredentialsFromEnv,
   toAppError,
-} from "@cli-mcp/core";
-import { zodToJsonSchema } from "@cli-mcp/openapi";
+} from "@trifold/core";
+import { zodToJsonSchema } from "@trifold/openapi";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { createMcpExpressApp } from "@modelcontextprotocol/sdk/server/express.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";

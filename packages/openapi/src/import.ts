@@ -4,7 +4,7 @@ import {
   type OperationDef,
   type Registry,
   type SideEffect,
-} from "@cli-mcp/core";
+} from "@trifold/core";
 import { z, type ZodTypeAny } from "zod";
 import { jsonSchemaToZod } from "./json-schema-zod.js";
 import { pathParamNames } from "./paths.js";
@@ -307,8 +307,8 @@ export function emitHandlerSkeleton(ops: OperationDef[]): string {
 // Operations:
 ${table}
 
-import { Registry } from "@cli-mcp/core";
-import { openApiToOperations, parseOpenAPIJson } from "@cli-mcp/openapi";
+import { Registry } from "@trifold/core";
+import { openApiToOperations, parseOpenAPIJson } from "@trifold/openapi";
 import { readFileSync } from "node:fs";
 
 export const importedOperationIds = ${JSON.stringify(ids, null, 2)} as const;

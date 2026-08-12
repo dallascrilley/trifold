@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { createCli } from "@cli-mcp/adapters-cli";
-import { createTasksRegistry, tasksStoreFromEnv } from "@cli-mcp/ops";
+import { createCli } from "@trifold/adapters-cli";
+import { createTasksRegistry, tasksStoreFromEnv } from "@trifold/ops";
 
 const store = tasksStoreFromEnv();
 const { registry } = createTasksRegistry(store);

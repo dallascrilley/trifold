@@ -8,7 +8,7 @@ importers:
 
   .:
     devDependencies:
-      '@cli-mcp/openapi':
+      '@trifold/openapi':
         specifier: workspace:*
         version: link:packages/openapi
       '@types/node':
@@ -26,13 +26,13 @@ importers:
 
   apps/api:
     dependencies:
-      '@cli-mcp/adapters-http':
+      '@trifold/adapters-http':
         specifier: workspace:*
         version: link:../../packages/adapters-http
-      '@cli-mcp/openapi':
+      '@trifold/openapi':
         specifier: workspace:*
         version: link:../../packages/openapi
-      '@cli-mcp/ops':
+      '@trifold/ops':
         specifier: workspace:*
         version: link:../../packages/ops
       '@hono/node-server':
@@ -54,10 +54,10 @@ importers:
 
   apps/cli:
     dependencies:
-      '@cli-mcp/adapters-cli':
+      '@trifold/adapters-cli':
         specifier: workspace:*
         version: link:../../packages/adapters-cli
-      '@cli-mcp/ops':
+      '@trifold/ops':
         specifier: workspace:*
         version: link:../../packages/ops
     devDependencies:
@@ -73,10 +73,10 @@ importers:
 
   apps/mcp:
     dependencies:
-      '@cli-mcp/adapters-mcp':
+      '@trifold/adapters-mcp':
         specifier: workspace:*
         version: link:../../packages/adapters-mcp
-      '@cli-mcp/ops':
+      '@trifold/ops':
         specifier: workspace:*
         version: link:../../packages/ops
     devDependencies:
@@ -92,13 +92,13 @@ importers:
 
   apps/notes-api:
     dependencies:
-      '@cli-mcp/adapters-http':
+      '@trifold/adapters-http':
         specifier: workspace:*
         version: link:../../packages/adapters-http
-      '@cli-mcp/notes':
+      '@trifold/notes':
         specifier: workspace:*
         version: link:../../packages/notes
-      '@cli-mcp/openapi':
+      '@trifold/openapi':
         specifier: workspace:*
         version: link:../../packages/openapi
       '@hono/node-server':
@@ -120,10 +120,10 @@ importers:
 
   apps/notes-cli:
     dependencies:
-      '@cli-mcp/adapters-cli':
+      '@trifold/adapters-cli':
         specifier: workspace:*
         version: link:../../packages/adapters-cli
-      '@cli-mcp/notes':
+      '@trifold/notes':
         specifier: workspace:*
         version: link:../../packages/notes
     devDependencies:
@@ -139,10 +139,10 @@ importers:
 
   apps/notes-mcp:
     dependencies:
-      '@cli-mcp/adapters-mcp':
+      '@trifold/adapters-mcp':
         specifier: workspace:*
         version: link:../../packages/adapters-mcp
-      '@cli-mcp/notes':
+      '@trifold/notes':
         specifier: workspace:*
         version: link:../../packages/notes
     devDependencies:
@@ -158,7 +158,7 @@ importers:
 
   packages/adapters-cli:
     dependencies:
-      '@cli-mcp/core':
+      '@trifold/core':
         specifier: workspace:*
         version: link:../core
       citty:
@@ -168,7 +168,7 @@ importers:
         specifier: ^3.24.2
         version: 3.25.76
     devDependencies:
-      '@cli-mcp/ops':
+      '@trifold/ops':
         specifier: workspace:*
         version: link:../ops
       typescript:
@@ -180,14 +180,14 @@ importers:
 
   packages/adapters-http:
     dependencies:
-      '@cli-mcp/core':
+      '@trifold/core':
         specifier: workspace:*
         version: link:../core
       hono:
         specifier: ^4.7.4
         version: 4.13.1
     devDependencies:
-      '@cli-mcp/ops':
+      '@trifold/ops':
         specifier: workspace:*
         version: link:../ops
       typescript:
@@ -199,10 +199,10 @@ importers:
 
   packages/adapters-mcp:
     dependencies:
-      '@cli-mcp/core':
+      '@trifold/core':
         specifier: workspace:*
         version: link:../core
-      '@cli-mcp/openapi':
+      '@trifold/openapi':
         specifier: workspace:*
         version: link:../openapi
       '@modelcontextprotocol/sdk':
@@ -215,7 +215,7 @@ importers:
         specifier: ^3.24.2
         version: 3.25.76
     devDependencies:
-      '@cli-mcp/ops':
+      '@trifold/ops':
         specifier: workspace:*
         version: link:../ops
       '@types/express':
@@ -246,7 +246,7 @@ importers:
 
   packages/notes:
     dependencies:
-      '@cli-mcp/core':
+      '@trifold/core':
         specifier: workspace:*
         version: link:../core
       zod:
@@ -262,7 +262,7 @@ importers:
 
   packages/openapi:
     dependencies:
-      '@cli-mcp/core':
+      '@trifold/core':
         specifier: workspace:*
         version: link:../core
       zod:
@@ -272,7 +272,7 @@ importers:
         specifier: ^3.24.5
         version: 3.25.2(zod@3.25.76)
     devDependencies:
-      '@cli-mcp/ops':
+      '@trifold/ops':
         specifier: workspace:*
         version: link:../ops
       tsx:
@@ -287,7 +287,7 @@ importers:
 
   packages/ops:
     dependencies:
-      '@cli-mcp/core':
+      '@trifold/core':
         specifier: workspace:*
         version: link:../core
       zod:
@@ -312,19 +312,19 @@ importers:
 
   packages/smoke:
     dependencies:
-      '@cli-mcp/adapters-cli':
+      '@trifold/adapters-cli':
         specifier: workspace:*
         version: link:../adapters-cli
-      '@cli-mcp/adapters-http':
+      '@trifold/adapters-http':
         specifier: workspace:*
         version: link:../adapters-http
-      '@cli-mcp/adapters-mcp':
+      '@trifold/adapters-mcp':
         specifier: workspace:*
         version: link:../adapters-mcp
-      '@cli-mcp/openapi':
+      '@trifold/openapi':
         specifier: workspace:*
         version: link:../openapi
-      '@cli-mcp/ops':
+      '@trifold/ops':
         specifier: workspace:*
         version: link:../ops
     devDependencies:

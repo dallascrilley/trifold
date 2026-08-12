@@ -28,15 +28,15 @@ Business rules live only in handlers. Adapters own validation presentation, auth
 
 | Concept | Package | Role |
 |---|---|---|
-| `OperationDef` | `@cli-mcp/core` | Contract + handler |
-| `Registry` | `@cli-mcp/core` | Catalog of operations |
-| `invokeOperation` | `@cli-mcp/core` | Shared validation + call path |
-| `JsonFileMapStore` | `@cli-mcp/core` | Optional multi-process JSON persistence |
-| `createHttpApp` | `@cli-mcp/adapters-http` | Hono routes from registry |
-| `createCli` | `@cli-mcp/adapters-cli` | citty command tree |
-| `createMcpServer` / `runMcpMain` | `@cli-mcp/adapters-mcp` | MCP stdio or Streamable HTTP |
-| `emitOpenAPI` / `openApiToOperations` | `@cli-mcp/openapi` | Bidirectional OpenAPI bridge |
-| `scaffoldProduct` | `@cli-mcp/scaffold` | New domain + three apps |
+| `OperationDef` | `@trifold/core` | Contract + handler |
+| `Registry` | `@trifold/core` | Catalog of operations |
+| `invokeOperation` | `@trifold/core` | Shared validation + call path |
+| `JsonFileMapStore` | `@trifold/core` | Optional multi-process JSON persistence |
+| `createHttpApp` | `@trifold/adapters-http` | Hono routes from registry |
+| `createCli` | `@trifold/adapters-cli` | citty command tree |
+| `createMcpServer` / `runMcpMain` | `@trifold/adapters-mcp` | MCP stdio or Streamable HTTP |
+| `emitOpenAPI` / `openApiToOperations` | `@trifold/openapi` | Bidirectional OpenAPI bridge |
+| `scaffoldProduct` | `@trifold/scaffold` | New domain + three apps |
 
 ## Surface mapping
 

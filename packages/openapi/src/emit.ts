@@ -1,4 +1,4 @@
-import type { OperationDef, Registry } from "@cli-mcp/core";
+import type { OperationDef, Registry } from "@trifold/core";
 import { pathParamNames } from "./paths.js";
 import { zodToJsonSchema } from "./zod-schema.js";
 

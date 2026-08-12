@@ -1,4 +1,4 @@
-import { createContext, invokeOperation } from "@cli-mcp/core";
+import { createContext, invokeOperation } from "@trifold/core";
 import { describe, expect, it } from "vitest";
 import { createNotesRegistry } from "./ops.js";
 

@@ -1,4 +1,4 @@
-import { AppError, JsonFileMapStore, storePathFromEnv } from "@cli-mcp/core";
+import { AppError, JsonFileMapStore, storePathFromEnv } from "@trifold/core";
 import type { Task } from "./schemas.js";
 import { TaskSchema } from "./schemas.js";
 

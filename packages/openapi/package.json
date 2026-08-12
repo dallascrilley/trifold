@@ -1,5 +1,5 @@
 {
-  "name": "@cli-mcp/openapi",
+  "name": "@trifold/openapi",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -16,12 +16,12 @@
     "snapshot": "tsx src/write-snapshot.ts"
   },
   "dependencies": {
-    "@cli-mcp/core": "workspace:*",
+    "@trifold/core": "workspace:*",
     "zod": "^3.24.2",
     "zod-to-json-schema": "^3.24.5"
   },
   "devDependencies": {
-    "@cli-mcp/ops": "workspace:*",
+    "@trifold/ops": "workspace:*",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
     "vitest": "^3.0.9"

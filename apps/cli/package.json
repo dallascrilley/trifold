@@ -13,8 +13,8 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@cli-mcp/adapters-cli": "workspace:*",
-    "@cli-mcp/ops": "workspace:*"
+    "@trifold/adapters-cli": "workspace:*",
+    "@trifold/ops": "workspace:*"
   },
   "devDependencies": {
     "tsx": "^4.19.3",

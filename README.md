@@ -194,7 +194,7 @@ registry.register({
 ```bash
 pnpm scaffold -- inventory --title "Inventory"
 pnpm install
-pnpm --filter @cli-mcp/inventory test
+pnpm --filter @trifold/inventory test
 export APP_API_KEY=dev-key
 export INVENTORY_STORE_PATH=$PWD/.data/inventory.json
 pnpm --filter @app/inventory-cli start -- inventory create "Widget" --json
@@ -234,12 +234,12 @@ Stubs get HTTP/CLI surfaces and Zod inputs from JSON Schema. Handlers start as `
 
 | Package | Responsibility |
 |---|---|
-| `@cli-mcp/core` | IR, registry, invoke, auth, `JsonFileMapStore` |
-| `@cli-mcp/adapters-http` | Hono app from registry |
-| `@cli-mcp/adapters-cli` | citty CLI from registry |
-| `@cli-mcp/adapters-mcp` | MCP stdio / Streamable HTTP |
-| `@cli-mcp/openapi` | OpenAPI emit + import |
-| `@cli-mcp/scaffold` | Product generator |
+| `@trifold/core` | IR, registry, invoke, auth, `JsonFileMapStore` |
+| `@trifold/adapters-http` | Hono app from registry |
+| `@trifold/adapters-cli` | citty CLI from registry |
+| `@trifold/adapters-mcp` | MCP stdio / Streamable HTTP |
+| `@trifold/openapi` | OpenAPI emit + import |
+| `@trifold/scaffold` | Product generator |
 
 Deep dive: **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)** · walkthrough: **[docs/demo.md](./docs/demo.md)**
 
@@ -279,10 +279,7 @@ Deep dive: **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)** · walkthrough: **
 ## Project status
 
 Working **boilerplate** (not a hosted SaaS). Samples use in-memory or local JSON stores.
-
-- Status pointer: [STATUS.md](./STATUS.md)  
-- Public release SOP: [docs/runbooks/public-repo-release-sop.md](./docs/runbooks/public-repo-release-sop.md)  
-- Design history: `docs/brainstorms/`, `docs/plans/`
+Packages live under the `@trifold/*` scope. Clone, install, and run the quick start above.
 
 ---
 
