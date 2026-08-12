@@ -6,6 +6,7 @@
 
 | Role | File | Use |
 |------|------|-----|
+| **Lockup** | `variants/trifold-lockup.png` | README header — primary mark + wordmark + tagline |
 | **Primary mark** | `primary/trifold-mark.png` | Closed denim wallet + peeking cards (hero / default) |
 | **Open wallet** | `variants/trifold-wallet-open.png` | Alternate mark with three surface cards |
 | **Avatar** | `variants/trifold-avatar.png` | GitHub avatar / circular badge |

@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="docs/brand/primary/trifold-mark.png" width="180" alt="Trifold — closed denim trifold wallet with three cards"/>
+  <img src="docs/brand/variants/trifold-lockup.png" width="420" alt="Trifold — One op. Three surfaces."/>
 </p>
-
-<h1 align="center">Trifold</h1>
 
 <p align="center">
   <strong>Define an operation once, ship it as an HTTP API, a CLI, and an MCP server.</strong><br/>
